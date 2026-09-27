@@ -3,12 +3,12 @@
   "short_name": "MYPOOL",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#0ea5e9",
+  "background_color": "#0b1329",
+  "theme_color": "#0b1329",
   "icons": [
     {
       "src": "logo-piscina.png",
-      "sizes": "512x512",
+      "sizes": "192x192 512x512",
       "type": "image/png"
     }
   ]
