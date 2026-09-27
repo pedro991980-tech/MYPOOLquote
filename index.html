@@ -31,13 +31,14 @@
             padding: 0;
             font-family: Arial, sans-serif;
             word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
-            padding: 8px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -45,24 +46,24 @@
 
         header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             width: 100%;
             max-width: 100%;
         }
 
         .app-logo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 6px;
+            border-radius: 14px;
+            margin-bottom: 8px;
             background: #0f172a;
             border: 2px solid var(--border-color);
             padding: 4px;
         }
 
         header h1 {
-            font-size: 38px; /* Caratteri ingranditi del 159% */
+            font-size: 38px; /* +159% */
             font-weight: bold;
             color: #38bdf8;
             margin-bottom: 4px;
@@ -70,7 +71,7 @@
         }
 
         header p {
-            font-size: 20px; /* Caratteri ingranditi del 159% */
+            font-size: 20px; /* +159% */
             font-weight: bold;
             color: #cbd5e1;
             text-transform: uppercase;
@@ -82,22 +83,22 @@
             max-width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
 
         .card {
             background: var(--card-bg);
             border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 14px;
+            padding: 16px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             width: 100%;
         }
 
         .card h2 {
-            font-size: 26px; /* Caratteri ingranditi del 159% */
+            font-size: 26px; /* +159% */
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #38bdf8;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 6px;
@@ -106,13 +107,13 @@
         }
 
         .input-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             width: 100%;
         }
 
         .input-group label {
             display: block;
-            font-size: 21px; /* Caratteri ingranditi del 159% */
+            font-size: 21px; /* +159% */
             font-weight: bold;
             margin-bottom: 6px;
             color: #ffffff;
@@ -126,41 +127,41 @@
             border: 2px solid #38bdf8;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 21px; /* Caratteri ingranditi del 159% */
+            font-size: 21px; /* +159% */
             font-weight: bold;
         }
 
         button.action-btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: #0ea5e9;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 24px; /* Caratteri ingranditi del 159% */
+            font-size: 24px; /* +159% */
             font-weight: bold;
             cursor: pointer;
-            margin-top: 12px;
+            margin-top: 15px;
             text-transform: uppercase;
         }
 
         #canvas-container {
             width: 100%;
-            height: 250px;
+            height: 260px;
             display: block;
             border-radius: 8px;
             overflow: hidden;
             background: #020617;
             border: 2px solid var(--border-color);
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         .results {
-            margin-top: 10px;
+            margin-top: 12px;
             background: #0f172a;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
-            font-size: 21px; /* Caratteri ingranditi del 159% */
+            font-size: 21px; /* +159% */
             font-weight: bold;
             border-left: 6px solid #38bdf8;
             color: #ffffff;
@@ -172,7 +173,7 @@
         }
 
         .bom-container {
-            margin-top: 10px;
+            margin-top: 12px;
             background: #0f172a;
             border-radius: 8px;
             padding: 12px;
@@ -185,14 +186,13 @@
             width: 100%;
         }
 
-        /* Layout verticale pulito per evitare sovrapposizioni a schermo stretto */
         .bom-list li {
             padding: 14px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 8px;
+            gap: 10px;
             width: 100%;
         }
 
@@ -216,7 +216,7 @@
         }
 
         .bom-left label {
-            font-size: 21px !important; /* Caratteri ingranditi del 159% */
+            font-size: 21px !important; /* +159% */
             color: #ffffff !important;
             font-weight: bold;
             cursor: pointer;
@@ -232,9 +232,9 @@
 
         .bom-price-input {
             width: 100% !important;
-            max-width: 220px;
+            max-width: 240px;
             padding: 10px !important;
-            font-size: 21px !important; /* Caratteri ingranditi del 159% */
+            font-size: 21px !important; /* +159% */
             text-align: right;
             background: #1e293b !important;
             color: #ffffff !important;
@@ -244,22 +244,22 @@
         }
 
         .total-box {
-            margin-top: 12px;
+            margin-top: 15px;
             background: rgba(14, 165, 233, 0.25);
             border: 2px solid #38bdf8;
-            padding: 14px;
+            padding: 16px;
             border-radius: 8px;
-            font-size: 22px; /* Caratteri ingranditi del 159% */
+            font-size: 22px; /* +159% */
             font-weight: bold;
             color: #ffffff;
-            line-height: 1.5;
+            line-height: 1.6;
             text-align: right;
             width: 100%;
         }
 
         .total-box span {
             color: #38bdf8;
-            font-size: 28px; /* Caratteri ingranditi del 159% */
+            font-size: 28px; /* +159% */
         }
     </style>
 </head>
@@ -268,50 +268,80 @@
     <header>
         <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
         <h1>MYPOOL QUOTATION</h1>
-        <p>UNI 10637 &bull; Grafica 3D &bull; Preventivo Modulare</p>
+        <p>UNI 10637 &bull; Grafica 3D &bull; Cataloghi Italia</p>
     </header>
 
     <div class="container">
+        <!-- 0. DATI COSTRUTTORE & CLIENTE -->
+        <div class="card">
+            <h2>0. Dati Anagrafici</h2>
+            <div class="input-group">
+                <label>Azienda Installatrice / Costruttore</label>
+                <input type="text" id="builderName" value="MYPOOL S.r.l." placeholder="Nome Azienda">
+            </div>
+            <div class="input-group">
+                <label>Referente / Installatore</label>
+                <input type="text" id="builderRef" value="Mario Rossi" placeholder="Nome Referente">
+            </div>
+            <div class="input-group">
+                <label>Partita IVA Costruttore</label>
+                <input type="text" id="builderPiva" value="IT12345678901" placeholder="P.IVA">
+            </div>
+            <hr style="border: 1px solid rgba(56,189,248,0.3); margin: 15px 0;">
+            <div class="input-group">
+                <label>Nome & Cognome Cliente</label>
+                <input type="text" id="clientName" value="Giuseppe Verdi" placeholder="Cliente">
+            </div>
+            <div class="input-group">
+                <label>Indirizzo Cantiere</label>
+                <input type="text" id="clientAddress" value="Via Roma 10, Milano" placeholder="Indirizzo">
+            </div>
+            <div class="input-group">
+                <label>Telefono / Email Cliente</label>
+                <input type="text" id="clientContact" value="333 1234567 - info@email.it" placeholder="Contatti">
+            </div>
+        </div>
+
         <!-- 1. MODELLI & DIMENSIONI -->
         <div class="card">
-            <h2>1. Dimensioni Vasca</h2>
+            <h2>1. Modello & Dimensioni Vasca</h2>
             <div class="input-group">
-                <label>Modello Preimpostato</label>
+                <label>Modelli Cataloghi Ufficiali (Fluidra / Renolit / Puls)</label>
                 <select id="catalogModel" onchange="applyCatalogModel()">
-                    <option value="custom">-- Personalizzato --</option>
-                    <option value="fluidra_8x4" selected>Fluidra Skimmer (8 x 4 m)</option>
-                    <option value="liberty_6x3">Vetroresina Liberty (6 x 3 m)</option>
-                    <option value="lagos_5x3">Fuori Terra Lagos (5 x 3 m)</option>
-                    <option value="mirror_10x5">Sfioratore Mirror (10 x 5 m)</option>
+                    <option value="custom">-- Personalizzato / Libero --</option>
+                    <option value="fluidra_8x4" selected>Fluidra Skimmer Residential (8 x 4 m)</option>
+                    <option value="liberty_6x3">Vetroresina Monoblocco Liberty (6 x 3 m)</option>
+                    <option value="puls_lagos_5x3">Puls Fuori Terra Pannellato (5 x 3 m)</option>
+                    <option value="mirror_10x5">Fluidra Mirror High-End (10 x 5 m)</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Tipologia</label>
+                <label>Tipologia Costruttiva</label>
                 <select id="poolType" onchange="onManualChange()">
-                    <option value="skimmer">Skimmer Standard</option>
-                    <option value="sfioratore">Bordo Sfioratore</option>
-                    <option value="vetroresina">Vetroresina</option>
-                    <option value="fuoriterra">Fuori Terra</option>
+                    <option value="skimmer">Interrata a Skimmer (Fluidra / C.A.)</option>
+                    <option value="sfioratore">Bordo Sfioratore Mirror (Fluidra)</option>
+                    <option value="vetroresina">Monoblocco in Vetroresina (Puls)</option>
+                    <option value="fuoriterra">Fuori Terra / Seminterrata Rinforzata</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Lunghezza (m)</label>
+                <label>Lunghezza Vasca (m)</label>
                 <input type="number" id="poolL" value="8" step="0.5" oninput="onManualChange()">
             </div>
             <div class="input-group">
-                <label>Larghezza (m)</label>
+                <label>Larghezza Vasca (m)</label>
                 <input type="number" id="poolW" value="4" step="0.5" oninput="onManualChange()">
             </div>
             <div class="input-group">
-                <label>Profondità (m)</label>
+                <label>Profondità Media (m)</label>
                 <input type="number" id="poolH" value="1.4" step="0.1" oninput="updateAll()">
             </div>
             <div class="input-group">
-                <label>Ricircolo (UNI 10637)</label>
+                <label>Ricircolo Acqua (Norma UNI 10637)</label>
                 <select id="turnoverTime" onchange="updateAll()">
-                    <option value="4">4 Ore</option>
-                    <option value="6" selected>6 Ore</option>
-                    <option value="8">8 Ore</option>
+                    <option value="4">4 Ore (Pubbliche / Natatorie)</option>
+                    <option value="6" selected>6 Ore (Residenziali Standard)</option>
+                    <option value="8">8 Ore (Risparmio Energetico)</option>
                 </select>
             </div>
             
@@ -323,71 +353,84 @@
 
         <!-- 2. ANTEPRIMA 3D -->
         <div class="card">
-            <h2>2. Anteprima 3D</h2>
+            <h2>2. Anteprima 3D Vasca</h2>
             <div id="canvas-container"></div>
         </div>
 
-        <!-- 3. PREVENTIVO E DISTINTA BASE -->
+        <!-- 3. PREVENTIVO & DISTINTA BASE -->
         <div class="card">
-            <h2>3. Distinta Base & Preventivo</h2>
+            <h2>3. Listino & Distinta Base</h2>
             
             <div class="input-group">
-                <label>Membrana PVC</label>
+                <label>Membrana Armata (Renolit Alkorplan Italia)</label>
                 <select id="liningModel" onchange="updateAll()">
-                    <option value="1000">Alkorplan 1000</option>
-                    <option value="2000">Alkorplan 2000</option>
-                    <option value="touch" selected>Alkorplan Touch</option>
+                    <option value="1000">Alkorplan 1000 (Tinta Unita 1,5 mm)</option>
+                    <option value="2000">Alkorplan 2000 (Laccato 1,5 mm)</option>
+                    <option value="touch" selected>Alkorplan Touch (Effetto Pietra 2 mm)</option>
+                    <option value="evolve">Alkorplan Ceramics Evolve</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Solarium (mq)</label>
+                <label>Solarium Perimetrale (mq)</label>
                 <input type="number" id="solariumArea" value="50" step="1" oninput="updateAll()">
             </div>
             <div class="input-group">
-                <label>Doccia Solare</label>
+                <label>Doccia Solare (Puls / Fluidra)</label>
                 <select id="solarShower" onchange="updateAll()">
-                    <option value="none">Nessuna</option>
-                    <option value="standard" selected>Standard</option>
-                    <option value="luxury">Luxury</option>
+                    <option value="none">Nessuna Doccia</option>
+                    <option value="standard" selected>Doccia Solare Alluminio Standard</option>
+                    <option value="luxury">Doccia Solare Curva Design con Lava-piedi</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Pompa di Calore</label>
+                <label>Pompa di Calore Inverter (Riscaldamento)</label>
                 <select id="heatPump" onchange="updateAll()">
-                    <option value="none">Nessuna</option>
-                    <option value="inverter_std" selected>Inverter Eco</option>
-                    <option value="inverter_pro">Inverter Pro</option>
+                    <option value="none">Nessuna Pompa di Calore</option>
+                    <option value="inverter_std" selected>Inverter Full-Inverter Eco</option>
+                    <option value="inverter_pro">Inverter Pro Alta Efficienza</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Copertura</label>
+                <label>Copertura Piscina</label>
                 <select id="poolCover" onchange="updateAll()">
-                    <option value="none">Nessuna</option>
-                    <option value="bubble" selected>Isotermica a Bolle</option>
-                    <option value="automatic">Tapparella Automatica</option>
+                    <option value="none">Nessuna Copertura</option>
+                    <option value="bubble" selected>Isotermica a Bolle 400 micron</option>
+                    <option value="automatic">Tapparella Automatica di Sicurezza</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>IVA Applicata</label>
+                <label>Ricarico Materiali (%) [Listino Partner]</label>
+                <input type="number" id="materialMarkup" value="35" step="1" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Incidenza Manodopera & Scavi (%)</label>
+                <input type="number" id="laborMarkup" value="40" step="1" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Margine d'Impresa / Utile (%)</label>
+                <input type="number" id="companyMargin" value="18" step="1" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Aliquota IVA Applicata</label>
                 <select id="vatRate" onchange="updateAll()">
-                    <option value="0.22" selected>Ordinaria 22%</option>
-                    <option value="0.10">Agevolata 10%</option>
+                    <option value="0.22" selected>IVA Ordinaria 22%</option>
+                    <option value="0.10">IVA Agevolata 10% (Ristrutturazioni)</option>
                     <option value="0.00">Esente 0%</option>
                 </select>
             </div>
 
             <div class="bom-container">
-                <p style="color: #38bdf8; font-size: 21px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">Voci Selezionabili & Modificabili:</p>
+                <p style="color: #38bdf8; font-size: 21px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">Componenti & Lavori (Selezionabili & Modificabili):</p>
                 <ul class="bom-list" id="bomListContainer"></ul>
             </div>
 
             <div class="total-box" id="totalBoxContent">
                 Imponibile: € 0,00<br>
                 IVA: € 0,00<br>
-                <strong>Totale: <span>€ 0,00</span></strong>
+                <strong>Totale Complessivo: <span>€ 0,00</span></strong>
             </div>
 
-            <button class="action-btn" onclick="generateOrder()">Genera Preventivo PDF</button>
+            <button class="action-btn" onclick="generateOrder()">Genera Preventivo Ufficiale</button>
         </div>
     </div>
 
@@ -398,7 +441,7 @@
         const catalogModels = {
             'fluidra_8x4': { l: 8, w: 4, h: 1.4, type: 'skimmer' },
             'liberty_6x3': { l: 6, w: 3, h: 1.3, type: 'vetroresina' },
-            'lagos_5x3': { l: 5, w: 3, h: 1.2, type: 'fuoriterra' },
+            'puls_lagos_5x3': { l: 5, w: 3, h: 1.2, type: 'fuoriterra' },
             'mirror_10x5': { l: 10, w: 5, h: 1.5, type: 'sfioratore' }
         };
 
@@ -428,7 +471,7 @@
             scene.background = new THREE.Color(0x020617);
 
             const width = container.clientWidth || 350;
-            const height = container.clientHeight || 250;
+            const height = container.clientHeight || 260;
 
             camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -526,60 +569,111 @@
             const h = parseFloat(document.getElementById('poolH').value) || 0;
             const t = parseFloat(document.getElementById('turnoverTime').value) || 6;
             const pType = document.getElementById('poolType').value;
+            
+            const matMarkup = parseFloat(document.getElementById('materialMarkup').value) / 100 || 0;
+            const labMarkup = parseFloat(document.getElementById('laborMarkup').value) / 100 || 0;
+            const compMargin = parseFloat(document.getElementById('companyMargin').value) / 100 || 0;
             const vatPercentage = parseFloat(document.getElementById('vatRate').value) || 0;
 
             const volume = l * w * h;
             const flowRate = volume / t;
+            const area = Math.PI * Math.pow(0.027, 2); 
+            const velocity = (flowRate / 3600) / area;
 
             document.getElementById('hydraulicResults').innerHTML = `
-                <p><strong>Volume:</strong> ${volume.toFixed(2)} m³</p>
-                <p><strong>Portata:</strong> ${flowRate.toFixed(2)} m³/h</p>
+                <p><strong>Volume Acqua:</strong> ${volume.toFixed(2)} m³</p>
+                <p><strong>Portata Richiesta (UNI 10637):</strong> ${flowRate.toFixed(2)} m³/h</p>
+                <p><strong>Velocità Tubazione:</strong> ${velocity.toFixed(2)} m/s</p>
             `;
 
+            let baseMatCost = 140;
+            if (pType === 'sfioratore') baseMatCost = 185;
+            if (pType === 'vetroresina') baseMatCost = 160;
+            if (pType === 'fuoriterra') baseMatCost = 110;
+
             const surfaceArea = (l * w) + (2 * (l + w) * h);
-            const rawMaterials = surfaceArea * 140;
+            const rawMaterials = surfaceArea * baseMatCost;
+            
             const solariumMq = parseFloat(document.getElementById('solariumArea').value) || 0;
+            const solariumTotal = solariumMq * 55 * (1 + matMarkup);
+
+            const showerVal = document.getElementById('solarShower').value;
+            let showerTotal = showerVal === 'standard' ? 450 * (1 + matMarkup) : (showerVal === 'luxury' ? 850 * (1 + matMarkup) : 0);
+
+            const hpVal = document.getElementById('heatPump').value;
+            let hpTotal = hpVal === 'inverter_std' ? 1800 * (1 + matMarkup) : (hpVal === 'inverter_pro' ? 2800 * (1 + matMarkup) : 0);
+
+            const coverVal = document.getElementById('poolCover').value;
+            let coverTotal = coverVal === 'bubble' ? 650 * (1 + matMarkup) : (coverVal === 'automatic' ? 4500 * (1 + matMarkup) : 0);
+
+            const itemStruct = rawMaterials * 0.35 * (1 + matMarkup);
+            const itemLining = rawMaterials * 0.18 * (1 + matMarkup);
+            const itemFilter = rawMaterials * 0.20 * (1 + matMarkup);
+            const itemSkimmer = rawMaterials * 0.12 * (1 + matMarkup);
+            const itemElectric = rawMaterials * 0.15 * (1 + matMarkup);
+            const itemPipes = rawMaterials * 0.10 * (1 + matMarkup);
 
             let rawItemsList = [
-                { name: "Scavi & Struttura Armata", price: rawMaterials * 0.35 },
-                { name: "Rivestimento Membrana PVC", price: rawMaterials * 0.18 },
-                { name: "Filtrazione & Pompa", price: rawMaterials * 0.20 },
-                { name: "Skimmer & Bocchette", price: rawMaterials * 0.12 },
-                { name: "Quadro Elettrico & Fari LED", price: rawMaterials * 0.15 },
-                { name: `Pavimentazione Solare (${solariumMq} mq)`, price: solariumMq * 55 },
-                { name: "Doccia Solare", price: document.getElementById('solarShower').value !== 'none' ? 450 : 0 },
-                { name: "Pompa di Calore", price: document.getElementById('heatPump').value !== 'none' ? 1800 : 0 },
-                { name: "Copertura Piscina", price: document.getElementById('poolCover').value !== 'none' ? 650 : 0 },
-                { name: "Manodopera & Scavi Edili", price: 3500 },
-                { name: "Margine d'Impresa / Utile", price: 1500 }
+                { name: "Scavi & Struttura Armata (Fluidra / C.A.)", price: itemStruct },
+                { name: `Membrana PVC Armata (~${surfaceArea.toFixed(0)} mq)`, price: itemLining },
+                { name: `Gruppo Filtrazione & Pompa (${flowRate.toFixed(1)} m³/h)`, price: itemFilter },
+                { name: "Skimmer, Bocchette & Raccordi PN16", price: itemSkimmer },
+                { name: "Quadro Elettrico CE & Fari LED", price: itemElectric },
+                { name: "Tubazioni PN16 & Pozzetti", price: itemPipes },
+                { name: `Pavimentazione Solare Perimetrale (${solariumMq} mq)`, price: solariumTotal },
+                { name: "Doccia Solare da Esterno", price: showerTotal },
+                { name: "Pompa di Calore Inverter", price: hpTotal },
+                { name: "Copertura Piscina", price: coverTotal }
             ];
 
-            let activeSubtotal = 0;
-            rawItemsList.forEach((it, idx) => {
-                if (bomCustomItems[idx] === undefined) {
-                    bomCustomItems[idx] = { checked: true, price: it.price };
-                }
-                if (bomCustomItems[idx].checked) {
-                    activeSubtotal += bomCustomItems[idx].price;
+            const subMatActive = rawItemsList.reduce((acc, curr, idx) => {
+                if (bomCustomItems[idx] === undefined) bomCustomItems[idx] = { checked: true, price: curr.price };
+                return acc + (bomCustomItems[idx].checked ? bomCustomItems[idx].price : 0);
+            }, 0);
+
+            const laborCost = subMatActive * labMarkup;
+            const subtotalForMargin = subMatActive + laborCost;
+            const companyUtile = subtotalForMargin * compMargin;
+
+            const laborIdx = rawItemsList.length;
+            const marginIdx = laborIdx + 1;
+
+            if (bomCustomItems[laborIdx] === undefined) bomCustomItems[laborIdx] = { checked: true, price: laborCost };
+            if (bomCustomItems[marginIdx] === undefined) bomCustomItems[marginIdx] = { checked: true, price: companyUtile };
+
+            let finalRenderList = [...rawItemsList];
+            finalRenderList.push({ name: "Manodopera Specializzata & Scavi Edili", price: bomCustomItems[laborIdx].price });
+            finalRenderList.push({ name: "Margine d'Impresa / Utile", price: bomCustomItems[marginIdx].price });
+
+            let totalImponibile = 0;
+            finalRenderList.forEach((it, idx) => {
+                if (bomCustomItems[idx] && bomCustomItems[idx].checked) {
+                    totalImponibile += bomCustomItems[idx].price;
                 }
             });
 
-            const calculatedVat = activeSubtotal * vatPercentage;
-            const calculatedTotalWithVat = activeSubtotal + calculatedVat;
+            const calculatedVat = totalImponibile * vatPercentage;
+            const calculatedTotalWithVat = totalImponibile + calculatedVat;
 
-            renderBOMList(rawItemsList);
+            renderBOMList(finalRenderList);
+
+            const builder = document.getElementById('builderName').value;
+            const client = document.getElementById('clientName').value;
 
             document.getElementById('totalBoxContent').innerHTML = `
-                Imponibile: € ${activeSubtotal.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                Installatore: <strong>${builder}</strong><br>
+                Cliente: <strong>${client}</strong><br>
+                Imponibile: € ${totalImponibile.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
                 IVA (${(vatPercentage * 100).toFixed(0)}%): € ${calculatedVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
-                <strong>Totale: <span>€ ${calculatedTotalWithVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></strong>
+                <strong>Totale Complessivo: <span>€ ${calculatedTotalWithVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></strong>
             `;
 
             update3DGeometry(l, w, h, pType);
         }
 
         function generateOrder() {
-            alert("Preventivo generato con successo!");
+            const client = document.getElementById('clientName').value;
+            alert("Preventivo ufficiale generato con successo per il cliente: " + client);
         }
 
         window.onload = function() {
