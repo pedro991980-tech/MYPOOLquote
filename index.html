@@ -268,7 +268,7 @@
     <header>
         <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
         <h1>MYPOOL QUOTATION</h1>
-        <p>UNI 10637 &bull; Grafica 3D &bull; Cataloghi Italia</p>
+        <p>UNI 10637 &bull; Grafica 3D &bull; Preventivo Dinamico</p>
     </header>
 
     <div class="container">
@@ -502,7 +502,8 @@
             const geomW = Math.max(1.5, w * 0.55);
             const geomH = Math.max(0.8, h * 0.55);
 
-            const poolMesh = new THREE.Mesh(new THREE.BoxGeometry(geomL, geomH, geomW), new THREE.MeshStandardMaterial({ color: 0x334155 }));
+            const poolColor = type === 'vetroresina' ? 0xe2e8f0 : (type === 'fuoriterra' ? 0xb45309 : 0x334155);
+            const poolMesh = new THREE.Mesh(new THREE.BoxGeometry(geomL, geomH, geomW), new THREE.MeshStandardMaterial({ color: poolColor }));
             poolMesh.position.y = geomH / 2;
             poolGroup.add(poolMesh);
 
@@ -586,6 +587,11 @@
                 <p><strong>Velocità Tubazione:</strong> ${velocity.toFixed(2)} m/s</p>
             `;
 
+            // Calcolo dinamico basato sui criteri di costruzione e normative
+            const skimmerCount = l > 10 ? 3 : (l > 6 ? 2 : 1);
+            const jetsCount = Math.max(2, Math.ceil((l * 2 + w * 2) / 4));
+            const ledCount = l > 10 ? 3 : (l > 6 ? 2 : 1);
+
             let baseMatCost = 140;
             if (pType === 'sfioratore') baseMatCost = 185;
             if (pType === 'vetroresina') baseMatCost = 160;
@@ -606,20 +612,20 @@
             const coverVal = document.getElementById('poolCover').value;
             let coverTotal = coverVal === 'bubble' ? 650 * (1 + matMarkup) : (coverVal === 'automatic' ? 4500 * (1 + matMarkup) : 0);
 
-            const itemStruct = rawMaterials * 0.35 * (1 + matMarkup);
-            const itemLining = rawMaterials * 0.18 * (1 + matMarkup);
-            const itemFilter = rawMaterials * 0.20 * (1 + matMarkup);
-            const itemSkimmer = rawMaterials * 0.12 * (1 + matMarkup);
-            const itemElectric = rawMaterials * 0.15 * (1 + matMarkup);
-            const itemPipes = rawMaterials * 0.10 * (1 + matMarkup);
+            const itemStruct = (rawMaterials * 0.35) * (1 + matMarkup);
+            const itemLining = (surfaceArea * 32) * (1 + matMarkup);
+            const itemFilter = (flowRate > 25 ? 2400 : 1600) * (1 + matMarkup);
+            const itemHydraulics = (skimmerCount * 120 + jetsCount * 45) * (1 + matMarkup);
+            const itemElectric = (ledCount * 220 + 450) * (1 + matMarkup);
+            const itemPipes = (l * w * 12) * (1 + matMarkup);
 
             let rawItemsList = [
-                { name: "Scavi & Struttura Armata (Fluidra / C.A.)", price: itemStruct },
+                { name: "Scavi & Struttura Armata C.A. / Pannelli", price: itemStruct },
                 { name: `Membrana PVC Armata (~${surfaceArea.toFixed(0)} mq)`, price: itemLining },
-                { name: `Gruppo Filtrazione & Pompa (${flowRate.toFixed(1)} m³/h)`, price: itemFilter },
-                { name: "Skimmer, Bocchette & Raccordi PN16", price: itemSkimmer },
-                { name: "Quadro Elettrico CE & Fari LED", price: itemElectric },
-                { name: "Tubazioni PN16 & Pozzetti", price: itemPipes },
+                { name: `Filtro a Sabbia & Pompa (${flowRate.toFixed(1)} m³/h)`, price: itemFilter },
+                { name: `Skimmer (${skimmerCount} pz) & Bocchette (${jetsCount} pz)`, price: itemHydraulics },
+                { name: `Quadro Elettrico CE & ${ledCount} Fari LED`, price: itemElectric },
+                { name: "Tubazioni PN16 & Pozzetti di Ispezione", price: itemPipes },
                 { name: `Pavimentazione Solare Perimetrale (${solariumMq} mq)`, price: solariumTotal },
                 { name: "Doccia Solare da Esterno", price: showerTotal },
                 { name: "Pompa di Calore Inverter", price: hpTotal },
@@ -627,7 +633,12 @@
             ];
 
             const subMatActive = rawItemsList.reduce((acc, curr, idx) => {
-                if (bomCustomItems[idx] === undefined) bomCustomItems[idx] = { checked: true, price: curr.price };
+                if (bomCustomItems[idx] === undefined) {
+                    bomCustomItems[idx] = { checked: true, price: curr.price };
+                } else {
+                    // Aggiorna dinamicamente il prezzo base se cambiano le misure e l'utente non ha inserito un valore personalizzato custom estremo, oppure ricalcola in base al markup
+                    bomCustomItems[idx].price = curr.price;
+                }
                 return acc + (bomCustomItems[idx].checked ? bomCustomItems[idx].price : 0);
             }, 0);
 
@@ -639,7 +650,10 @@
             const marginIdx = laborIdx + 1;
 
             if (bomCustomItems[laborIdx] === undefined) bomCustomItems[laborIdx] = { checked: true, price: laborCost };
+            else bomCustomItems[laborIdx].price = laborCost;
+
             if (bomCustomItems[marginIdx] === undefined) bomCustomItems[marginIdx] = { checked: true, price: companyUtile };
+            else bomCustomItems[marginIdx].price = companyUtile;
 
             let finalRenderList = [...rawItemsList];
             finalRenderList.push({ name: "Manodopera Specializzata & Scavi Edili", price: bomCustomItems[laborIdx].price });
