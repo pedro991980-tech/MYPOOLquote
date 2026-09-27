@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MYPOOL quotation</title>
     <!-- Favicon e Icona per schermata Home iOS -->
     <link rel="icon" type="image/png" href="logo-piscina.png">
@@ -30,13 +30,14 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            word-break: break-word;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
-            padding: 10px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,72 +45,78 @@
 
         header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
         }
 
         .app-logo {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
-            border-radius: 15px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            margin-bottom: 6px;
             background: #0f172a;
             border: 2px solid var(--border-color);
             padding: 4px;
         }
 
         header h1 {
-            font-size: 38px; /* +80% circa rispetto al base */
+            font-size: 38px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
             color: #38bdf8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            line-height: 1.2;
         }
 
         header p {
-            font-size: 22px; /* +80% */
+            font-size: 20px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
             color: #cbd5e1;
             text-transform: uppercase;
+            line-height: 1.3;
         }
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .card {
             background: var(--card-bg);
             border: 2px solid var(--border-color);
-            border-radius: 14px;
-            padding: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
         }
 
         .card h2 {
-            font-size: 27px; /* +80% */
+            font-size: 26px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #38bdf8;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 6px;
             text-transform: uppercase;
+            line-height: 1.3;
         }
 
         .input-group {
             margin-bottom: 12px;
+            width: 100%;
         }
 
         .input-group label {
             display: block;
-            font-size: 22px; /* +80% */
+            font-size: 21px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: #ffffff;
+            line-height: 1.3;
         }
 
         .input-group input, .input-group select {
@@ -119,44 +126,45 @@
             border: 2px solid #38bdf8;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 22px; /* +80% */
+            font-size: 21px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
         }
 
         button.action-btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: #0ea5e9;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 25px; /* +80% */
+            font-size: 24px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 12px;
             text-transform: uppercase;
         }
 
         #canvas-container {
             width: 100%;
-            height: 280px;
+            height: 250px;
             display: block;
             border-radius: 8px;
             overflow: hidden;
             background: #020617;
             border: 2px solid var(--border-color);
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .results {
-            margin-top: 12px;
+            margin-top: 10px;
             background: #0f172a;
             padding: 12px;
             border-radius: 8px;
-            font-size: 22px; /* +80% */
+            font-size: 21px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
             border-left: 6px solid #38bdf8;
             color: #ffffff;
+            line-height: 1.4;
         }
 
         .results p {
@@ -164,75 +172,94 @@
         }
 
         .bom-container {
-            margin-top: 12px;
+            margin-top: 10px;
             background: #0f172a;
             border-radius: 8px;
             padding: 12px;
             border: 2px solid var(--border-color);
+            width: 100%;
         }
 
         .bom-list {
             list-style-type: none;
+            width: 100%;
         }
 
+        /* Layout verticale pulito per evitare sovrapposizioni a schermo stretto */
         .bom-list li {
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .bom-list li:last-child {
+            border-bottom: none;
         }
 
         .bom-left {
             display: flex;
             align-items: center;
             gap: 12px;
-            flex: 1;
+            width: 100%;
         }
 
         .bom-left input[type="checkbox"] {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             accent-color: #0ea5e9;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .bom-left label {
-            font-size: 21px !important; /* +80% */
+            font-size: 21px !important; /* Caratteri ingranditi del 159% */
             color: #ffffff !important;
             font-weight: bold;
             cursor: pointer;
             margin: 0;
+            line-height: 1.3;
+        }
+
+        .bom-right {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
         }
 
         .bom-price-input {
-            width: 130px !important;
-            padding: 8px !important;
-            font-size: 21px !important; /* +80% */
+            width: 100% !important;
+            max-width: 220px;
+            padding: 10px !important;
+            font-size: 21px !important; /* Caratteri ingranditi del 159% */
             text-align: right;
             background: #1e293b !important;
             color: #ffffff !important;
             border: 2px solid #38bdf8 !important;
             border-radius: 6px;
+            font-weight: bold;
         }
 
         .total-box {
-            margin-top: 15px;
+            margin-top: 12px;
             background: rgba(14, 165, 233, 0.25);
             border: 2px solid #38bdf8;
-            padding: 15px;
+            padding: 14px;
             border-radius: 8px;
-            font-size: 23px; /* +80% */
+            font-size: 22px; /* Caratteri ingranditi del 159% */
             font-weight: bold;
             color: #ffffff;
             line-height: 1.5;
             text-align: right;
+            width: 100%;
         }
 
         .total-box span {
             color: #38bdf8;
-            font-size: 29px; /* +80% */
+            font-size: 28px; /* Caratteri ingranditi del 159% */
         }
     </style>
 </head>
@@ -241,7 +268,7 @@
     <header>
         <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
         <h1>MYPOOL QUOTATION</h1>
-        <p>UNI 10637 &bull; Grafica 3D &bull; Preventivo 100% Modulare</p>
+        <p>UNI 10637 &bull; Grafica 3D &bull; Preventivo Modulare</p>
     </header>
 
     <div class="container">
@@ -350,7 +377,7 @@
             </div>
 
             <div class="bom-container">
-                <p style="color: #38bdf8; font-size: 22px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">Voci Selezionabili & Modificabili:</p>
+                <p style="color: #38bdf8; font-size: 21px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">Voci Selezionabili & Modificabili:</p>
                 <ul class="bom-list" id="bomListContainer"></ul>
             </div>
 
@@ -401,7 +428,7 @@
             scene.background = new THREE.Color(0x020617);
 
             const width = container.clientWidth || 350;
-            const height = container.clientHeight || 280;
+            const height = container.clientHeight || 250;
 
             camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -474,7 +501,7 @@
                             <input type="checkbox" id="bom_chk_${index}" ${currentObj.checked ? 'checked' : ''} onchange="toggleBOMItem(${index})">
                             <label for="bom_chk_${index}">${item.name}</label>
                         </div>
-                        <div>
+                        <div class="bom-right">
                             <input type="number" step="1" class="bom-price-input" id="bom_prc_${index}" value="${currentObj.price.toFixed(0)}" oninput="updateBOMPrice(${index}, this.value)" ${!currentObj.checked ? 'disabled style="opacity:0.4"' : ''}>
                         </div>
                     </li>
@@ -558,6 +585,17 @@
         window.onload = function() {
             init3D();
             applyCatalogModel();
+        };
+
+        window.onresize = function() {
+            const container = document.getElementById('canvas-container');
+            if (container && renderer && camera) {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
         };
     </script>
 </body>
