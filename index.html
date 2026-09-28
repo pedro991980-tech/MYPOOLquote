@@ -81,6 +81,36 @@
             line-height: 1.3;
         }
 
+        /* Switch Versione PRO / LITE */
+        .version-switch {
+            display: flex;
+            gap: 10px;
+            margin: 12px 0;
+            width: 100%;
+        }
+
+        .version-btn {
+            flex: 1;
+            padding: 14px;
+            background: #0f172a;
+            border: 2px solid #38bdf8;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .version-btn.active {
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+        }
+
         .container {
             width: 100%;
             max-width: 100%;
@@ -134,7 +164,7 @@
             font-weight: bold;
         }
 
-        /* Selettori Tab / Interfacce */
+        /* Selettori Tab PRO (Globale, Edile, Impianto) */
         .tabs-container {
             display: flex;
             gap: 8px;
@@ -293,6 +323,36 @@
             color: #38bdf8;
             font-size: 28px;
         }
+
+        /* Stile specifico per i macro totali LITE */
+        .lite-summary-box {
+            margin-top: 15px;
+            background: #0f172a;
+            border: 2px solid #38bdf8;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 21px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.7;
+            text-align: left;
+            width: 100%;
+        }
+
+        .lite-summary-box .macro-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 0;
+        }
+
+        .lite-summary-box .macro-row:last-child {
+            border-bottom: none;
+        }
+
+        .lite-summary-box .macro-val {
+            color: #38bdf8;
+        }
     </style>
 </head>
 <body>
@@ -300,7 +360,13 @@
     <header>
         <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
         <h1>MYPOOL QUOTATION</h1>
-        <p>UNI 10637 &bull; Edile & Impianti &bull; Preventivo PDF</p>
+        <p>UNI 10637 &bull; Gestione PRO & LITE</p>
+
+        <!-- SELETTORE VERSIONE PRO / LITE -->
+        <div class="version-switch">
+            <button type="button" class="version-btn active" id="ver_pro" onclick="setAppVersion('pro')">Versione PRO</button>
+            <button type="button" class="version-btn" id="ver_lite" onclick="setAppVersion('lite')">Versione LITE</button>
+        </div>
     </header>
 
     <div class="container">
@@ -383,18 +449,18 @@
             </div>
         </div>
 
-        <!-- 2. ANTEPRIMA 3D -->
-        <div class="card">
+        <!-- 2. ANTEPRIMA 3D (Visibile solo in PRO) -->
+        <div class="card" id="card3d">
             <h2>2. Anteprima 3D Vasca</h2>
             <div id="canvas-container"></div>
         </div>
 
-        <!-- 3. PREVENTIVO & DISTINTA BASE -->
+        <!-- 3. PREVENTIVO & DISTINTA BASE / SINTESI LITE -->
         <div class="card">
-            <h2>3. Listino & Distinta Base</h2>
+            <h2 id="cardTitleListino">3. Listino & Distinta Base (PRO)</h2>
             
-            <!-- SELETTORE INTERFACCIA / TAB -->
-            <div class="input-group">
+            <!-- SELETTORE TAB PRO (Visibile solo in PRO) -->
+            <div class="input-group" id="proTabsWrapper">
                 <label>Modalità Visualizzazione Preventivo</label>
                 <div class="tabs-container">
                     <button type="button" class="tab-btn active" id="tab_completo" onclick="setQuoteMode('completo')">Globale</button>
@@ -461,9 +527,31 @@
                 </select>
             </div>
 
-            <div class="bom-container">
+            <!-- CONTENITORE DISTINTA PRO -->
+            <div class="bom-container" id="proBomWrapper">
                 <p style="color: #38bdf8; font-size: 21px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;" id="bomTitleText">Componenti & Lavori:</p>
                 <ul class="bom-list" id="bomListContainer"></ul>
+            </div>
+
+            <!-- CONTENITORE SINTESI MACRO LITE -->
+            <div class="lite-summary-box" id="liteSummaryWrapper" style="display: none;">
+                <p style="color: #38bdf8; font-size: 21px; margin-bottom: 12px; font-weight: bold; text-transform: uppercase; text-align: center;">Sintesi Preventivo Rapido LITE</p>
+                <div class="macro-row">
+                    <span>Subtotale Lavori Edili:</span>
+                    <span class="macro-val" id="liteEdileVal">€ 0,00</span>
+                </div>
+                <div class="macro-row">
+                    <span>Subtotale Impianto & Accessori:</span>
+                    <span class="macro-val" id="liteImpiantoVal">€ 0,00</span>
+                </div>
+                <div class="macro-row" style="border-top: 2px solid #38bdf8; margin-top: 8px; padding-top: 10px;">
+                    <span>Imponibile Totale:</span>
+                    <span class="macro-val" id="liteImponibileVal">€ 0,00</span>
+                </div>
+                <div class="macro-row">
+                    <span>IVA Applicata:</span>
+                    <span class="macro-val" id="liteVatVal">€ 0,00</span>
+                </div>
             </div>
 
             <div class="total-box" id="totalBoxContent">
@@ -481,6 +569,7 @@
         let bomCustomItems = {};
         let currentRenderList = [];
         let currentTotals = {};
+        let appVersion = 'pro'; // 'pro' o 'lite'
         let activeQuoteMode = 'completo'; // 'completo', 'edile', 'impianto'
 
         const catalogModels = {
@@ -489,6 +578,27 @@
             'puls_lagos_5x3': { l: 5, w: 3, h: 1.2, type: 'fuoriterra' },
             'mirror_10x5': { l: 10, w: 5, h: 1.5, type: 'sfioratore' }
         };
+
+        function setAppVersion(ver) {
+            appVersion = ver;
+            document.querySelectorAll('.version-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`ver_${ver}`).classList.add('active');
+
+            if (ver === 'lite') {
+                document.getElementById('card3d').style.display = 'none';
+                document.getElementById('proTabsWrapper').style.display = 'none';
+                document.getElementById('proBomWrapper').style.display = 'none';
+                document.getElementById('liteSummaryWrapper').style.display = 'block';
+                document.getElementById('cardTitleListino').innerText = '3. Preventivo Rapido Globale (LITE)';
+            } else {
+                document.getElementById('card3d').style.display = 'block';
+                document.getElementById('proTabsWrapper').style.display = 'block';
+                document.getElementById('proBomWrapper').style.display = 'block';
+                document.getElementById('liteSummaryWrapper').style.display = 'none';
+                document.getElementById('cardTitleListino').innerText = '3. Listino & Distinta Base (PRO)';
+            }
+            updateAll();
+        }
 
         function setQuoteMode(mode) {
             activeQuoteMode = mode;
@@ -680,7 +790,6 @@
             const itemElectric = (ledCount * 220 + 450) * (1 + matMarkup);
             const itemPipes = (l * w * 12) * (1 + matMarkup);
 
-            // Tutte le voci con categoria di appartenenza ('edile' o 'impianto')
             let allItemsList = [
                 { name: "Scavi & Struttura Armata C.A. / Pannelli", price: itemStruct, cat: 'edile' },
                 { name: `Membrana PVC Armata (~${surfaceArea.toFixed(0)} mq)`, price: itemLining, cat: 'edile' },
@@ -694,8 +803,7 @@
                 { name: "Copertura Piscina", price: coverTotal, cat: 'impianto' }
             ];
 
-            // Filtraggio in base alla tab attiva
-            let rawItemsList = allItemsList.filter(it => {
+            let rawItemsList = appVersion === 'lite' ? allItemsList : allItemsList.filter(it => {
                 if (activeQuoteMode === 'completo') return true;
                 return it.cat === activeQuoteMode;
             });
@@ -709,9 +817,20 @@
                 return acc + (bomCustomItems[idx].checked ? bomCustomItems[idx].price : 0);
             }, 0);
 
+            // Calcolo separato Edile vs Impianto per la versione LITE
+            let sumEdileMaterials = allItemsList.filter(it => it.cat === 'edile').reduce((acc, curr, idx) => acc + curr.price, 0);
+            let sumImpiantoMaterials = allItemsList.filter(it => it.cat === 'impianto').reduce((acc, curr, idx) => acc + curr.price, 0);
+
             const laborCost = subMatActive * labMarkup;
             const subtotalForMargin = subMatActive + laborCost;
             const companyUtile = subtotalForMargin * compMargin;
+
+            // Ripartizione proporzionale di manodopera e margine per LITE
+            let ratioEdile = subMatActive > 0 ? (sumEdileMaterials / subMatActive) : 0.5;
+            let ratioImpianto = subMatActive > 0 ? (sumImpiantoMaterials / subMatActive) : 0.5;
+
+            let subEdileFinal = sumEdileMaterials + (laborCost * ratioEdile) + (companyUtile * ratioEdile);
+            let subImpiantoFinal = sumImpiantoMaterials + (laborCost * ratioImpianto) + (companyUtile * ratioImpianto);
 
             const laborIdx = rawItemsList.length;
             const marginIdx = laborIdx + 1;
@@ -740,22 +859,35 @@
             const calculatedVat = totalImponibile * vatPercentage;
             const calculatedTotalWithVat = totalImponibile + calculatedVat;
 
-            currentTotals = { imponibile: totalImponibile, vat: calculatedVat, total: calculatedTotalWithVat, vatRateVal: vatPercentage };
+            currentTotals = { 
+                imponibile: totalImponibile, 
+                vat: calculatedVat, 
+                total: calculatedTotalWithVat, 
+                vatRateVal: vatPercentage,
+                edileFinal: subEdileFinal * (1 + vatPercentage),
+                impiantoFinal: subImpiantoFinal * (1 + vatPercentage)
+            };
 
-            renderBOMList(finalRenderList);
+            if (appVersion === 'pro') {
+                renderBOMList(finalRenderList);
+                const modeNames = { 'completo': 'GLOBALE (EDILE + IMPIANTO)', 'edile': 'SOLO OPERE EDILI & SCAVI', 'impianto': 'SOLO IMPIANTO & ACCESSORI' };
+                document.getElementById('bomTitleText').innerHTML = `Sezione: ${modeNames[activeQuoteMode]}`;
+                document.getElementById('totalBoxContent').innerHTML = `
+                    Vista PRO: <strong>${modeNames[activeQuoteMode]}</strong><br>
+                    Imponibile: € ${totalImponibile.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                    IVA (${(vatPercentage * 100).toFixed(0)}%): € ${calculatedVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                    <strong>Totale Complessivo: <span>€ ${calculatedTotalWithVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></strong>
+                `;
+            } else {
+                document.getElementById('liteEdileVal').innerText = `€ ${(subEdileFinal * (1 + vatPercentage)).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                document.getElementById('liteImpiantoVal').innerText = `€ ${(subImpiantoFinal * (1 + vatPercentage)).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                document.getElementById('liteImponibileVal').innerText = `€ ${totalImponibile.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                document.getElementById('liteVatVal').innerText = `€ ${calculatedVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-            const builder = document.getElementById('builderName').value;
-            const client = document.getElementById('clientName').value;
-            const modeNames = { 'completo': 'GLOBALE (EDILE + IMPIANTO)', 'edile': 'SOLO OPERE EDILI & SCAVI', 'impianto': 'SOLO IMPIANTO & ACCESSORI' };
-
-            document.getElementById('bomTitleText').innerHTML = `Sezione: ${modeNames[activeQuoteMode]}`;
-            document.getElementById('totalBoxContent').innerHTML = `
-                Vista: <strong>${modeNames[activeQuoteMode]}</strong><br>
-                Installatore: <strong>${builder}</strong> | Cliente: <strong>${client}</strong><br>
-                Imponibile: € ${totalImponibile.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
-                IVA (${(vatPercentage * 100).toFixed(0)}%): € ${calculatedVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
-                <strong>Totale Complessivo: <span>€ ${calculatedTotalWithVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></strong>
-            `;
+                document.getElementById('totalBoxContent').innerHTML = `
+                    <strong>Totale Complessivo LITE (IVA Inclusa): <span>€ ${calculatedTotalWithVat.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></strong>
+                `;
+            }
 
             update3DGeometry(l, w, h, pType);
         }
@@ -775,19 +907,15 @@
             const w = document.getElementById('poolW').value;
             const h = document.getElementById('poolH').value;
             
-            const modeTitles = {
-                'completo': 'PREVENTIVO GLOBALE (EDILE + IMPIANTO)',
-                'edile': 'PREVENTIVO OP. EDILI, SCAVI & SOLARIUM',
-                'impianto': 'PREVENTIVO IMPIANTISTICA & ACCESSORI'
-            };
-
             doc.setFont("helvetica", "bold");
             doc.setFontSize(16);
             doc.setTextColor(14, 165, 233);
             doc.text("MYPOOL QUOTATION", 14, 18);
+            
+            let titlePDF = appVersion === 'lite' ? "PREVENTIVO RAPIDO GLOBALE (LITE)" : `PREVENTIVO PRO (${activeQuoteMode.toUpperCase()})`;
             doc.setFontSize(11);
             doc.setTextColor(80);
-            doc.text(modeTitles[activeQuoteMode], 14, 25);
+            doc.text(titlePDF, 14, 25);
 
             doc.setFontSize(10);
             doc.setTextColor(100);
@@ -808,21 +936,35 @@
             doc.text(`PARAMETRI VASCA: ${l}m x ${w}m x ${h}m`, 14, 70);
 
             let y = 80;
-            doc.setFontSize(10);
-            doc.text("VOCI DI COMPUTO SELEZIONATE:", 14, y);
-            y += 8;
 
-            doc.setFont("helvetica", "normal");
-            currentRenderList.forEach((item, idx) => {
-                if (bomCustomItems[idx] && bomCustomItems[idx].checked) {
-                    if (y > 270) { doc.addPage(); y = 20; }
-                    doc.text(`- ${item.name}`, 14, y);
-                    doc.text(`€ ${bomCustomItems[idx].price.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
-                    y += 7;
-                }
-            });
+            if (appVersion === 'lite') {
+                doc.setFontSize(11);
+                doc.text("SINTESI ECONOMICA MACRO-VOCI:", 14, y);
+                y += 10;
+                doc.setFont("helvetica", "normal");
+                doc.text(`- Subtotale Lavori Edili (IVA incl.):`, 14, y);
+                doc.text(`€ ${currentTotals.edileFinal.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
+                y += 8;
+                doc.text(`- Subtotale Impianto & Accessori (IVA incl.):`, 14, y);
+                doc.text(`€ ${currentTotals.impiantoFinal.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
+                y += 12;
+            } else {
+                doc.setFontSize(10);
+                doc.text("VOCI DI COMPUTO SELEZIONATE:", 14, y);
+                y += 8;
 
-            y += 10;
+                doc.setFont("helvetica", "normal");
+                currentRenderList.forEach((item, idx) => {
+                    if (bomCustomItems[idx] && bomCustomItems[idx].checked) {
+                        if (y > 270) { doc.addPage(); y = 20; }
+                        doc.text(`- ${item.name}`, 14, y);
+                        doc.text(`€ ${bomCustomItems[idx].price.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
+                        y += 7;
+                    }
+                });
+                y += 10;
+            }
+
             if (y > 250) { doc.addPage(); y = 20; }
 
             doc.setFont("helvetica", "bold");
@@ -834,7 +976,7 @@
             doc.setTextColor(14, 165, 233);
             doc.text(`TOTALE: € ${currentTotals.total.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
 
-            doc.save(`Preventivo_${activeQuoteMode}_${client.replace(/\s+/g, '_')}.pdf`);
+            doc.save(`Preventivo_${appVersion}_${client.replace(/\s+/g, '_')}.pdf`);
         }
 
         window.onload = function() {
