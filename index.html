@@ -48,6 +48,88 @@
             overflow-x: hidden;
         }
 
+        /* Schermata di Apertura (Splash Screen) */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0b0f19 0%, #020617 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .splash-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 24px;
+            background: #0f172a;
+            border: 3px solid var(--border-color);
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        .splash-title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .splash-subtitle {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .splash-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .splash-btn {
+            width: 100%;
+            padding: 16px;
+            background: #0ea5e9;
+            color: #ffffff;
+            border: 2px solid #38bdf8;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .splash-btn.lite {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+
+        /* App principale (inizialmente nascosta finché non si sceglie la versione) */
+        #mainAppContainer {
+            display: none;
+            width: 100%;
+            max-width: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
+
         header {
             text-align: center;
             margin-bottom: 12px;
@@ -56,18 +138,18 @@
         }
 
         .app-logo {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
-            border-radius: 14px;
-            margin-bottom: 6px;
+            border-radius: 12px;
+            margin-bottom: 4px;
             background: #0f172a;
             border: 2px solid var(--border-color);
             padding: 4px;
         }
 
         header h1 {
-            font-size: 34px;
+            font-size: 30px;
             font-weight: bold;
             color: #38bdf8;
             margin-bottom: 2px;
@@ -75,41 +157,11 @@
         }
 
         header p {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #cbd5e1;
             text-transform: uppercase;
             line-height: 1.3;
-        }
-
-        /* Switch Versione PRO / LITE */
-        .version-switch {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-            width: 100%;
-        }
-
-        .version-btn {
-            flex: 1;
-            padding: 12px;
-            background: #0f172a;
-            border: 2px solid #38bdf8;
-            color: #ffffff;
-            font-size: 19px;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .version-btn.active {
-            background: #0ea5e9;
-            color: #ffffff;
-            border-color: #ffffff;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
         }
 
         /* Carosello & Pagine Orizzontali (Swipe) */
@@ -117,7 +169,7 @@
             display: flex;
             gap: 6px;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .nav-step-btn {
@@ -126,7 +178,7 @@
             background: #0f172a;
             border: 2px solid #38bdf8;
             color: #94a3b8;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
@@ -158,7 +210,7 @@
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             padding: 2px;
         }
 
@@ -166,90 +218,88 @@
             background: var(--card-bg);
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            padding: 16px;
+            padding: 14px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             width: 100%;
         }
 
         .card h2 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #38bdf8;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 6px;
+            padding-bottom: 4px;
             text-transform: uppercase;
             line-height: 1.3;
         }
 
         .input-group {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
         .input-group label {
             display: block;
-            font-size: 21px;
+            font-size: 19px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #ffffff;
             line-height: 1.3;
         }
 
         .input-group input, .input-group select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: #0f172a;
             border: 2px solid #38bdf8;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 21px;
+            font-size: 19px;
             font-weight: bold;
         }
 
-        /* Selettori Tab PRO */
         .tabs-container {
             display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
+            gap: 6px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 12px 6px;
+            padding: 10px 4px;
             background: #0f172a;
             border: 2px solid #38bdf8;
             color: #ffffff;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
         }
 
         .tab-btn.active {
             background: #0ea5e9;
             color: #ffffff;
             border-color: #ffffff;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
         }
 
         .nav-buttons-row {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         button.nav-action-btn {
             flex: 1;
-            padding: 14px;
+            padding: 12px;
             background: #334155;
             color: white;
             border: 2px solid #38bdf8;
             border-radius: 8px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
@@ -257,35 +307,35 @@
 
         button.action-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: #0ea5e9;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 12px;
             text-transform: uppercase;
         }
 
         #canvas-container {
             width: 100%;
-            height: 260px;
+            height: 220px;
             display: block;
             border-radius: 8px;
             overflow: hidden;
             background: #020617;
             border: 2px solid var(--border-color);
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .results {
-            margin-top: 12px;
+            margin-top: 10px;
             background: #0f172a;
-            padding: 14px;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 21px;
+            font-size: 19px;
             font-weight: bold;
             border-left: 6px solid #38bdf8;
             color: #ffffff;
@@ -293,14 +343,14 @@
         }
 
         .results p {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .bom-container {
-            margin-top: 12px;
+            margin-top: 10px;
             background: #0f172a;
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid var(--border-color);
             width: 100%;
         }
@@ -311,12 +361,12 @@
         }
 
         .bom-list li {
-            padding: 14px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
         }
 
@@ -327,20 +377,20 @@
         .bom-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
         }
 
         .bom-left input[type="checkbox"] {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             accent-color: #0ea5e9;
             cursor: pointer;
             flex-shrink: 0;
         }
 
         .bom-left label {
-            font-size: 21px !important;
+            font-size: 19px !important;
             color: #ffffff !important;
             font-weight: bold;
             cursor: pointer;
@@ -356,9 +406,9 @@
 
         .bom-price-input {
             width: 100% !important;
-            max-width: 240px;
-            padding: 10px !important;
-            font-size: 21px !important;
+            max-width: 220px;
+            padding: 8px !important;
+            font-size: 19px !important;
             text-align: right;
             background: #1e293b !important;
             color: #ffffff !important;
@@ -368,34 +418,34 @@
         }
 
         .total-box {
-            margin-top: 15px;
+            margin-top: 12px;
             background: rgba(14, 165, 233, 0.25);
             border: 2px solid #38bdf8;
-            padding: 16px;
+            padding: 14px;
             border-radius: 8px;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             color: #ffffff;
-            line-height: 1.6;
+            line-height: 1.5;
             text-align: right;
             width: 100%;
         }
 
         .total-box span {
             color: #38bdf8;
-            font-size: 28px;
+            font-size: 26px;
         }
 
         .lite-summary-box {
-            margin-top: 15px;
+            margin-top: 12px;
             background: #0f172a;
             border: 2px solid #38bdf8;
-            padding: 16px;
+            padding: 14px;
             border-radius: 10px;
-            font-size: 21px;
+            font-size: 19px;
             font-weight: bold;
             color: #ffffff;
-            line-height: 1.7;
+            line-height: 1.6;
             text-align: left;
             width: 100%;
         }
@@ -404,7 +454,7 @@
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding: 8px 0;
+            padding: 6px 0;
         }
 
         .lite-summary-box .macro-row:last-child {
@@ -418,263 +468,271 @@
 </head>
 <body>
 
-    <header>
-        <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
-        <h1>MYPOOL QUOTATION</h1>
-        <p>Swipe Orizzontale &bull; PRO & LITE</p>
-
-        <!-- SELETTORE VERSIONE PRO / LITE -->
-        <div class="version-switch">
-            <button type="button" class="version-btn active" id="ver_pro" onclick="setAppVersion('pro')">Versione PRO</button>
-            <button type="button" class="version-btn" id="ver_lite" onclick="setAppVersion('lite')">Versione LITE</button>
+    <!-- SCHERMATA DI APERTURA (SPLASH SCREEN) -->
+    <div id="splashScreen">
+        <img src="logo-piscina.png" alt="Logo" class="splash-logo" onerror="this.style.display='none'">
+        <div class="splash-title">MYPOOLQUOTE</div>
+        <div class="splash-subtitle">Preventivatore Professionale Piscine</div>
+        <div class="splash-buttons">
+            <button type="button" class="splash-btn" onclick="startApp('pro')">Versione PRO</button>
+            <button type="button" class="splash-btn lite" onclick="startApp('lite')">Versione LITE</button>
         </div>
-    </header>
-
-    <!-- BARRA DI NAVIGAZIONE ORIZZONTALE A SCHEDE -->
-    <div class="carousel-nav">
-        <button type="button" class="nav-step-btn active" id="nav_step_0" onclick="goToPage(0)">1. Anagrafica</button>
-        <button type="button" class="nav-step-btn" id="nav_step_1" onclick="goToPage(1)">2. Misure & 3D</button>
-        <button type="button" class="nav-step-btn" id="nav_step_2" onclick="goToPage(2)">3. Listino & Totali</button>
     </div>
 
-    <!-- CONTENITORE CAROSELLO / SWIPE -->
-    <div class="carousel-container">
-        <div class="carousel-track" id="carouselTrack">
-            
-            <!-- PAGINA 1: DATI ANAGRAFICI -->
-            <div class="carousel-page">
-                <div class="card">
-                    <h2>0. Dati Anagrafici</h2>
-                    <div class="input-group">
-                        <label>Azienda Installatrice / Costruttore</label>
-                        <input type="text" id="builderName" value="MYPOOL S.r.l." placeholder="Nome Azienda">
-                    </div>
-                    <div class="input-group">
-                        <label>Referente / Installatore</label>
-                        <input type="text" id="builderRef" value="Mario Rossi" placeholder="Nome Referente">
-                    </div>
-                    <div class="input-group">
-                        <label>Partita IVA Costruttore</label>
-                        <input type="text" id="builderPiva" value="IT12345678901" placeholder="P.IVA">
-                    </div>
-                    <hr style="border: 1px solid rgba(56,189,248,0.3); margin: 15px 0;">
-                    <div class="input-group">
-                        <label>Nome & Cognome Cliente</label>
-                        <input type="text" id="clientName" value="Giuseppe Verdi" placeholder="Cliente">
-                    </div>
-                    <div class="input-group">
-                        <label>Indirizzo Cantiere</label>
-                        <input type="text" id="clientAddress" value="Via Roma 10, Milano" placeholder="Indirizzo">
-                    </div>
-                    <div class="input-group">
-                        <label>Telefono / Email Cliente</label>
-                        <input type="text" id="clientContact" value="333 1234567 - info@email.it" placeholder="Contatti">
-                    </div>
+    <!-- APP PRINCIPALE -->
+    <div id="mainAppContainer">
+        <header>
+            <img src="logo-piscina.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
+            <h1>MYPOOL QUOTATION</h1>
+            <p id="headerModeLabel">Modalità PRO</p>
+        </header>
 
-                    <div class="nav-buttons-row">
-                        <button type="button" class="nav-action-btn" onclick="goToPage(1)" style="width:100%;">Avanti &rarr;</button>
+        <!-- BARRA DI NAVIGAZIONE ORIZZONTALE A SCHEDE -->
+        <div class="carousel-nav">
+            <button type="button" class="nav-step-btn active" id="nav_step_0" onclick="goToPage(0)">1. Anagrafica</button>
+            <button type="button" class="nav-step-btn" id="nav_step_1" onclick="goToPage(1)">2. Misure & 3D</button>
+            <button type="button" class="nav-step-btn" id="nav_step_2" onclick="goToPage(2)">3. Listino & Totali</button>
+        </div>
+
+        <!-- CONTENITORE CAROSELLO / SWIPE -->
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                
+                <!-- PAGINA 1: DATI ANAGRAFICI -->
+                <div class="carousel-page">
+                    <div class="card">
+                        <h2>0. Dati Anagrafici</h2>
+                        <div class="input-group">
+                            <label>Azienda Installatrice / Costruttore</label>
+                            <input type="text" id="builderName" value="MYPOOL S.r.l." placeholder="Nome Azienda">
+                        </div>
+                        <div class="input-group">
+                            <label>Referente / Installatore</label>
+                            <input type="text" id="builderRef" value="Mario Rossi" placeholder="Nome Referente">
+                        </div>
+                        <div class="input-group">
+                            <label>Partita IVA Costruttore</label>
+                            <input type="text" id="builderPiva" value="IT12345678901" placeholder="P.IVA">
+                        </div>
+                        <hr style="border: 1px solid rgba(56,189,248,0.3); margin: 12px 0;">
+                        <div class="input-group">
+                            <label>Nome & Cognome Cliente</label>
+                            <input type="text" id="clientName" value="Giuseppe Verdi" placeholder="Cliente">
+                        </div>
+                        <div class="input-group">
+                            <label>Indirizzo Cantiere</label>
+                            <input type="text" id="clientAddress" value="Via Roma 10, Milano" placeholder="Indirizzo">
+                        </div>
+                        <div class="input-group">
+                            <label>Telefono / Email Cliente</label>
+                            <input type="text" id="clientContact" value="333 1234567 - info@email.it" placeholder="Contatti">
+                        </div>
+
+                        <div class="nav-buttons-row">
+                            <button type="button" class="nav-action-btn" onclick="goToPage(1)" style="width:100%;">Avanti &rarr;</button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- PAGINA 2: SPECIFICHE TECNICHE, MISURE & 3D -->
+                <div class="carousel-page">
+                    <div class="card">
+                        <h2>1. Specifiche & Dimensioni</h2>
+                        
+                        <div class="input-group">
+                            <label>A) Modalità di Installazione</label>
+                            <select id="installMode" onchange="updateAll()">
+                                <option value="interrata" selected>Piscine Interrate</option>
+                                <option value="fuoriterra">Piscine Fuori Terra</option>
+                                <option value="seminterrata">Piscine Seminterrate</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" id="groupCirculation">
+                            <label>B) Sistema di Ricircolo Acqua</label>
+                            <select id="circulationMode" onchange="updateAll()">
+                                <option value="skimmer" selected>A Skimmer Standard</option>
+                                <option value="sfioro_mirror">A Sfioro Mirror / Sottobordo</option>
+                                <option value="sfioro_infinity">A Sfioro Cascata / Infinity</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>C) Materiali di Costruzione</label>
+                            <select id="materialMode" onchange="updateAll()">
+                                <option value="calcestruzzo" selected>Calcestruzzo / Muratura (C.A.)</option>
+                                <option value="acciaio">Prefabbricate in Pannelli d'Acciaio</option>
+                                <option value="vetroresina">Monoblocco in Vetroresina (GFK)</option>
+                                <option value="legno">Legno o Materiali Compositi</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>D) Forma e Destinazione d'Uso</label>
+                            <select id="shapeMode" onchange="updateAll()">
+                                <option value="rettangolare" selected>Geometrica Rettangolare (Nuoto)</option>
+                                <option value="rotonda">Geometrica Rotonda</option>
+                                <option value="ovale">Geometrica Ovale</option>
+                                <option value="libera">Forma Libera / Sagomata di Design</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Lunghezza Vasca (m)</label>
+                            <input type="number" id="poolL" value="8" step="0.5" oninput="onDimensionsChange()">
+                        </div>
+                        <div class="input-group">
+                            <label>Larghezza Vasca (m)</label>
+                            <input type="number" id="poolW" value="4" step="0.5" oninput="onDimensionsChange()">
+                        </div>
+                        <div class="input-group">
+                            <label>Profondità Media (m)</label>
+                            <input type="number" id="poolH" value="1.4" step="0.1" oninput="updateAll()">
+                        </div>
+                        <div class="input-group">
+                            <label>Ricircolo Acqua (Norma UNI 10637)</label>
+                            <select id="turnoverTime" onchange="updateAll()">
+                                <option value="4">4 Ore (Pubbliche / Natatorie)</option>
+                                <option value="6" selected>6 Ore (Residenziali Standard)</option>
+                                <option value="8">8 Ore (Risparmio Energetico)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="results" id="hydraulicResults">
+                            <p>Volume: -- m³</p>
+                            <p>Portata: -- m³/h</p>
+                        </div>
+                    </div>
+
+                    <!-- ANTEPRIMA 3D -->
+                    <div class="card" id="card3d">
+                        <h2>2. Anteprima 3D Vasca</h2>
+                        <div id="canvas-container"></div>
+                    </div>
+
+                    <div class="card" style="padding: 10px;">
+                        <div class="nav-buttons-row">
+                            <button type="button" class="nav-action-btn" onclick="goToPage(0)">&larr; Indietro</button>
+                            <button type="button" class="nav-action-btn" onclick="goToPage(2)">Avanti &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGINA 3: LISTINO, RINCARI & TOTALI -->
+                <div class="carousel-page">
+                    <div class="card">
+                        <h2 id="cardTitleListino">3. Listino & Distinta Base (PRO)</h2>
+                        
+                        <!-- SELETTORE TAB PRO -->
+                        <div class="input-group" id="proTabsWrapper">
+                            <label>Modalità Visualizzazione Preventivo</label>
+                            <div class="tabs-container">
+                                <button type="button" class="tab-btn active" id="tab_completo" onclick="setQuoteMode('completo')">Globale</button>
+                                <button type="button" class="tab-btn" id="tab_edile" onclick="setQuoteMode('edile')">Opere Edili</button>
+                                <button type="button" class="tab-btn" id="tab_impianto" onclick="setQuoteMode('impianto')">Impianto</button>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Rivestimento Interno / Membrana</label>
+                            <select id="liningModel" onchange="updateAll()">
+                                <option value="1000">PVC Armato Tinta Unita 1,5 mm</option>
+                                <option value="2000">PVC Armato Laccato 1,5 mm</option>
+                                <option value="touch" selected>PVC Armato Touch Effetto Pietra 2 mm</option>
+                                <option value="gelcoat">Gelcoat / Finitura Monoblocco</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Solarium Perimetrale (mq)</label>
+                            <input type="number" id="solariumArea" value="50" step="1" oninput="updateAll()">
+                        </div>
+                        <div class="input-group">
+                            <label>Doccia Solare</label>
+                            <select id="solarShower" onchange="updateAll()">
+                                <option value="none">Nessuna Doccia</option>
+                                <option value="standard" selected>Doccia Solare Alluminio Standard</option>
+                                <option value="luxury">Doccia Solare Curva Design con Lava-piedi</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Pompa di Calore Inverter (Riscaldamento)</label>
+                            <select id="heatPump" onchange="updateAll()">
+                                <option value="none">Nessuna Pompa di Calore</option>
+                                <option value="inverter_std" selected>Inverter Full-Inverter Eco</option>
+                                <option value="inverter_pro">Inverter Pro Alta Efficienza</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Copertura Piscina</label>
+                            <select id="poolCover" onchange="updateAll()">
+                                <option value="none">Nessuna Copertura</option>
+                                <option value="bubble" selected>Isotermica a Bolle 400 micron</option>
+                                <option value="automatic">Tapparella Automatica di Sicurezza</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Ricarico Materiali (%) [Listino Partner]</label>
+                            <input type="number" id="materialMarkup" value="35" step="1" oninput="updateAll()">
+                        </div>
+                        <div class="input-group">
+                            <label>Incidenza Manodopera & Scavi (%)</label>
+                            <input type="number" id="laborMarkup" value="40" step="1" oninput="updateAll()">
+                        </div>
+                        <div class="input-group">
+                            <label>Margine d'Impresa / Utile (%)</label>
+                            <input type="number" id="companyMargin" value="18" step="1" oninput="updateAll()">
+                        </div>
+                        <div class="input-group">
+                            <label>Aliquota IVA Applicata</label>
+                            <select id="vatRate" onchange="updateAll()">
+                                <option value="0.22" selected>IVA Ordinaria 22%</option>
+                                <option value="0.10">IVA Agevolata 10% (Ristrutturazioni)</option>
+                                <option value="0.00">Esente 0%</option>
+                            </select>
+                        </div>
+
+                        <!-- CONTENITORE DISTINTA PRO -->
+                        <div class="bom-container" id="proBomWrapper">
+                            <p style="color: #38bdf8; font-size: 19px; margin-bottom: 8px; font-weight: bold; text-transform: uppercase;" id="bomTitleText">Componenti & Lavori:</p>
+                            <ul class="bom-list" id="bomListContainer"></ul>
+                        </div>
+
+                        <!-- CONTENITORE SINTESI MACRO LITE -->
+                        <div class="lite-summary-box" id="liteSummaryWrapper" style="display: none;">
+                            <p style="color: #38bdf8; font-size: 19px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; text-align: center;">Sintesi Preventivo Rapido LITE</p>
+                            <div class="macro-row">
+                                <span>Subtotale Lavori Edili:</span>
+                                <span class="macro-val" id="liteEdileVal">€ 0,00</span>
+                            </div>
+                            <div class="macro-row">
+                                <span>Subtotale Impianto & Accessori:</span>
+                                <span class="macro-val" id="liteImpiantoVal">€ 0,00</span>
+                            </div>
+                            <div class="macro-row" style="border-top: 2px solid #38bdf8; margin-top: 6px; padding-top: 8px;">
+                                <span>Imponibile Totale:</span>
+                                <span class="macro-val" id="liteImponibileVal">€ 0,00</span>
+                            </div>
+                            <div class="macro-row">
+                                <span>IVA Applicata:</span>
+                                <span class="macro-val" id="liteVatVal">€ 0,00</span>
+                            </div>
+                        </div>
+
+                        <div class="total-box" id="totalBoxContent">
+                            Imponibile: € 0,00<br>
+                            IVA: € 0,00<br>
+                            <strong>Totale Complessivo: <span>€ 0,00</span></strong>
+                        </div>
+
+                        <div class="nav-buttons-row" style="margin-bottom: 8px;">
+                            <button type="button" class="nav-action-btn" onclick="goToPage(1)" style="width:100%;">&larr; Indietro alle Misure</button>
+                        </div>
+
+                        <button class="action-btn" onclick="generatePDF()">Genera Preventivo PDF</button>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- PAGINA 2: SPECIFICHE TECNICHE, MISURE & 3D -->
-            <div class="carousel-page">
-                <div class="card">
-                    <h2>1. Specifiche & Dimensioni</h2>
-                    
-                    <div class="input-group">
-                        <label>A) Modalità di Installazione</label>
-                        <select id="installMode" onchange="updateAll()">
-                            <option value="interrata" selected>Piscine Interrate</option>
-                            <option value="fuoriterra">Piscine Fuori Terra</option>
-                            <option value="seminterrata">Piscine Seminterrate</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group" id="groupCirculation">
-                        <label>B) Sistema di Ricircolo Acqua</label>
-                        <select id="circulationMode" onchange="updateAll()">
-                            <option value="skimmer" selected>A Skimmer Standard</option>
-                            <option value="sfioro_mirror">A Sfioro Mirror / Sottobordo</option>
-                            <option value="sfioro_infinity">A Sfioro Cascata / Infinity</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>C) Materiali di Costruzione</label>
-                        <select id="materialMode" onchange="updateAll()">
-                            <option value="calcestruzzo" selected>Calcestruzzo / Muratura (C.A.)</option>
-                            <option value="acciaio">Prefabbricate in Pannelli d'Acciaio</option>
-                            <option value="vetroresina">Monoblocco in Vetroresina (GFK)</option>
-                            <option value="legno">Legno o Materiali Compositi</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>D) Forma e Destinazione d'Uso</label>
-                        <select id="shapeMode" onchange="updateAll()">
-                            <option value="rettangolare" selected>Geometrica Rettangolare (Nuoto)</option>
-                            <option value="rotonda">Geometrica Rotonda</option>
-                            <option value="ovale">Geometrica Ovale</option>
-                            <option value="libera">Forma Libera / Sagomata di Design</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Lunghezza Vasca (m)</label>
-                        <input type="number" id="poolL" value="8" step="0.5" oninput="onDimensionsChange()">
-                    </div>
-                    <div class="input-group">
-                        <label>Larghezza Vasca (m)</label>
-                        <input type="number" id="poolW" value="4" step="0.5" oninput="onDimensionsChange()">
-                    </div>
-                    <div class="input-group">
-                        <label>Profondità Media (m)</label>
-                        <input type="number" id="poolH" value="1.4" step="0.1" oninput="updateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label>Ricircolo Acqua (Norma UNI 10637)</label>
-                        <select id="turnoverTime" onchange="updateAll()">
-                            <option value="4">4 Ore (Pubbliche / Natatorie)</option>
-                            <option value="6" selected>6 Ore (Residenziali Standard)</option>
-                            <option value="8">8 Ore (Risparmio Energetico)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="results" id="hydraulicResults">
-                        <p>Volume: -- m³</p>
-                        <p>Portata: -- m³/h</p>
-                    </div>
-                </div>
-
-                <!-- ANTEPRIMA 3D -->
-                <div class="card" id="card3d">
-                    <h2>2. Anteprima 3D Vasca</h2>
-                    <div id="canvas-container"></div>
-                </div>
-
-                <div class="card" style="padding: 12px;">
-                    <div class="nav-buttons-row">
-                        <button type="button" class="nav-action-btn" onclick="goToPage(0)">&larr; Indietro</button>
-                        <button type="button" class="nav-action-btn" onclick="goToPage(2)">Avanti &rarr;</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PAGINA 3: LISTINO, RINCARI & TOTALI -->
-            <div class="carousel-page">
-                <div class="card">
-                    <h2 id="cardTitleListino">3. Listino & Distinta Base (PRO)</h2>
-                    
-                    <!-- SELETTORE TAB PRO -->
-                    <div class="input-group" id="proTabsWrapper">
-                        <label>Modalità Visualizzazione Preventivo</label>
-                        <div class="tabs-container">
-                            <button type="button" class="tab-btn active" id="tab_completo" onclick="setQuoteMode('completo')">Globale</button>
-                            <button type="button" class="tab-btn" id="tab_edile" onclick="setQuoteMode('edile')">Opere Edili</button>
-                            <button type="button" class="tab-btn" id="tab_impianto" onclick="setQuoteMode('impianto')">Impianto</button>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Rivestimento Interno / Membrana</label>
-                        <select id="liningModel" onchange="updateAll()">
-                            <option value="1000">PVC Armato Tinta Unita 1,5 mm</option>
-                            <option value="2000">PVC Armato Laccato 1,5 mm</option>
-                            <option value="touch" selected>PVC Armato Touch Effetto Pietra 2 mm</option>
-                            <option value="gelcoat">Gelcoat / Finitura Monoblocco</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Solarium Perimetrale (mq)</label>
-                        <input type="number" id="solariumArea" value="50" step="1" oninput="updateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label>Doccia Solare</label>
-                        <select id="solarShower" onchange="updateAll()">
-                            <option value="none">Nessuna Doccia</option>
-                            <option value="standard" selected>Doccia Solare Alluminio Standard</option>
-                            <option value="luxury">Doccia Solare Curva Design con Lava-piedi</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Pompa di Calore Inverter (Riscaldamento)</label>
-                        <select id="heatPump" onchange="updateAll()">
-                            <option value="none">Nessuna Pompa di Calore</option>
-                            <option value="inverter_std" selected>Inverter Full-Inverter Eco</option>
-                            <option value="inverter_pro">Inverter Pro Alta Efficienza</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Copertura Piscina</label>
-                        <select id="poolCover" onchange="updateAll()">
-                            <option value="none">Nessuna Copertura</option>
-                            <option value="bubble" selected>Isotermica a Bolle 400 micron</option>
-                            <option value="automatic">Tapparella Automatica di Sicurezza</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Ricarico Materiali (%) [Listino Partner]</label>
-                        <input type="number" id="materialMarkup" value="35" step="1" oninput="updateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label>Incidenza Manodopera & Scavi (%)</label>
-                        <input type="number" id="laborMarkup" value="40" step="1" oninput="updateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label>Margine d'Impresa / Utile (%)</label>
-                        <input type="number" id="companyMargin" value="18" step="1" oninput="updateAll()">
-                    </div>
-                    <div class="input-group">
-                        <label>Aliquota IVA Applicata</label>
-                        <select id="vatRate" onchange="updateAll()">
-                            <option value="0.22" selected>IVA Ordinaria 22%</option>
-                            <option value="0.10">IVA Agevolata 10% (Ristrutturazioni)</option>
-                            <option value="0.00">Esente 0%</option>
-                        </select>
-                    </div>
-
-                    <!-- CONTENITORE DISTINTA PRO -->
-                    <div class="bom-container" id="proBomWrapper">
-                        <p style="color: #38bdf8; font-size: 21px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;" id="bomTitleText">Componenti & Lavori:</p>
-                        <ul class="bom-list" id="bomListContainer"></ul>
-                    </div>
-
-                    <!-- CONTENITORE SINTESI MACRO LITE -->
-                    <div class="lite-summary-box" id="liteSummaryWrapper" style="display: none;">
-                        <p style="color: #38bdf8; font-size: 21px; margin-bottom: 12px; font-weight: bold; text-transform: uppercase; text-align: center;">Sintesi Preventivo Rapido LITE</p>
-                        <div class="macro-row">
-                            <span>Subtotale Lavori Edili:</span>
-                            <span class="macro-val" id="liteEdileVal">€ 0,00</span>
-                        </div>
-                        <div class="macro-row">
-                            <span>Subtotale Impianto & Accessori:</span>
-                            <span class="macro-val" id="liteImpiantoVal">€ 0,00</span>
-                        </div>
-                        <div class="macro-row" style="border-top: 2px solid #38bdf8; margin-top: 8px; padding-top: 10px;">
-                            <span>Imponibile Totale:</span>
-                            <span class="macro-val" id="liteImponibileVal">€ 0,00</span>
-                        </div>
-                        <div class="macro-row">
-                            <span>IVA Applicata:</span>
-                            <span class="macro-val" id="liteVatVal">€ 0,00</span>
-                        </div>
-                    </div>
-
-                    <div class="total-box" id="totalBoxContent">
-                        Imponibile: € 0,00<br>
-                        IVA: € 0,00<br>
-                        <strong>Totale Complessivo: <span>€ 0,00</span></strong>
-                    </div>
-
-                    <div class="nav-buttons-row" style="margin-bottom: 10px;">
-                        <button type="button" class="nav-action-btn" onclick="goToPage(1)" style="width:100%;">&larr; Indietro alle Misure</button>
-                    </div>
-
-                    <button class="action-btn" onclick="generatePDF()">Genera Preventivo PDF</button>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -687,7 +745,6 @@
         let activeQuoteMode = 'completo';
         let currentPage = 0;
 
-        // Gestione Swipe Laterale Touch su Mobile
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -710,6 +767,30 @@
             }
         }
 
+        function startApp(ver) {
+            appVersion = ver;
+            document.getElementById('splashScreen').style.display = 'none';
+            document.getElementById('mainAppContainer').style.display = 'flex';
+
+            if (ver === 'lite') {
+                document.getElementById('card3d').style.display = 'none';
+                document.getElementById('proTabsWrapper').style.display = 'none';
+                document.getElementById('proBomWrapper').style.display = 'none';
+                document.getElementById('liteSummaryWrapper').style.display = 'block';
+                document.getElementById('cardTitleListino').innerText = '3. Preventivo Rapido Globale (LITE)';
+                document.getElementById('headerModeLabel').innerText = 'Modalità LITE';
+            } else {
+                document.getElementById('card3d').style.display = 'block';
+                document.getElementById('proTabsWrapper').style.display = 'block';
+                document.getElementById('proBomWrapper').style.display = 'block';
+                document.getElementById('liteSummaryWrapper').style.display = 'none';
+                document.getElementById('cardTitleListino').innerText = '3. Listino & Distinta Base (PRO)';
+                document.getElementById('headerModeLabel').innerText = 'Modalità PRO';
+                init3D();
+            }
+            updateAll();
+        }
+
         function goToPage(pageNum) {
             currentPage = pageNum;
             const track = document.getElementById('carouselTrack');
@@ -724,27 +805,6 @@
                 }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function setAppVersion(ver) {
-            appVersion = ver;
-            document.querySelectorAll('.version-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`ver_${ver}`).classList.add('active');
-
-            if (ver === 'lite') {
-                document.getElementById('card3d').style.display = 'none';
-                document.getElementById('proTabsWrapper').style.display = 'none';
-                document.getElementById('proBomWrapper').style.display = 'none';
-                document.getElementById('liteSummaryWrapper').style.display = 'block';
-                document.getElementById('cardTitleListino').innerText = '3. Preventivo Rapido Globale (LITE)';
-            } else {
-                document.getElementById('card3d').style.display = 'block';
-                document.getElementById('proTabsWrapper').style.display = 'block';
-                document.getElementById('proBomWrapper').style.display = 'block';
-                document.getElementById('liteSummaryWrapper').style.display = 'none';
-                document.getElementById('cardTitleListino').innerText = '3. Listino & Distinta Base (PRO)';
-            }
-            updateAll();
         }
 
         function setQuoteMode(mode) {
@@ -762,7 +822,7 @@
             scene.background = new THREE.Color(0x020617);
 
             const width = container.clientWidth || 350;
-            const height = container.clientHeight || 260;
+            const height = container.clientHeight || 220;
 
             camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
             renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -1044,7 +1104,9 @@
                 `;
             }
 
-            update3DGeometry(l, w, h, materialMode, shapeMode);
+            if (appVersion === 'pro' && scene && renderer) {
+                update3DGeometry(l, w, h, materialMode, shapeMode);
+            }
         }
 
         function generatePDF() {
@@ -1142,13 +1204,8 @@
             doc.setTextColor(14, 165, 233);
             doc.text(`TOTALE: € ${currentTotals.total.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
 
-            doc.save(`Preventivo_Swipe_${appVersion}_${client.replace(/\s+/g, '_')}.pdf`);
+            doc.save(`Preventivo_Splash_${appVersion}_${client.replace(/\s+/g, '_')}.pdf`);
         }
-
-        window.onload = function() {
-            init3D();
-            updateAll();
-        };
 
         window.onresize = function() {
             const container = document.getElementById('canvas-container');
