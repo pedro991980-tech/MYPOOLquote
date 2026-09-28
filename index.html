@@ -14,114 +14,123 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="MYPOOL quote">
 
-    <!-- Three.js libreria ufficiale -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- jsPDF libreria ufficiale per esportare in PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #1e293b;
-            --border-color: #38bdf8;
-            --text-color: #ffffff;
+            --bg-color: #07090e;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(56, 189, 248, 0.35);
+            --border-hover: rgba(56, 189, 248, 0.8);
+            --text-color: #f8fafc;
             --accent-color: #0ea5e9;
+            --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             word-break: break-word;
             overflow-wrap: break-word;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg-color) 70%);
             color: var(--text-color);
             min-height: 100vh;
-            padding: 10px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
         }
 
-        /* Schermata di Apertura (Splash Screen) */
+        /* Schermata di Apertura (Splash Screen) Stile App Nativa */
         #splashScreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0b0f19 0%, #020617 100%);
+            background: linear-gradient(145deg, #07090e 0%, #0f172a 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            padding: 20px;
+            padding: 24px;
             text-align: center;
         }
 
         .splash-logo {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             object-fit: contain;
-            border-radius: 24px;
-            background: #0f172a;
-            border: 3px solid var(--border-color);
-            padding: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+            border-radius: 28px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid var(--border-color);
+            padding: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.25);
         }
 
         .splash-title {
-            font-size: 42px;
-            font-weight: bold;
+            font-size: 38px;
+            font-weight: 800;
             color: #38bdf8;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
 
         .splash-subtitle {
-            font-size: 20px;
-            color: #cbd5e1;
-            margin-bottom: 35px;
+            font-size: 16px;
+            color: #94a3b8;
+            margin-bottom: 40px;
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .splash-buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
             width: 100%;
-            max-width: 320px;
+            max-width: 300px;
         }
 
         .splash-btn {
             width: 100%;
             padding: 16px;
-            background: #0ea5e9;
+            background: var(--accent-gradient);
             color: #ffffff;
-            border: 2px solid #38bdf8;
-            border-radius: 12px;
-            font-size: 22px;
-            font-weight: bold;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
-            transition: all 0.2s ease;
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .splash-btn:active {
+            transform: scale(0.97);
         }
 
         .splash-btn.lite {
-            background: #1e293b;
+            background: rgba(30, 41, 59, 0.9);
+            border: 2px solid var(--border-color);
             color: #38bdf8;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* App principale (inizialmente nascosta finché non si sceglie la versione) */
+        /* App principale */
         #mainAppContainer {
             display: none;
             width: 100%;
@@ -134,34 +143,33 @@
             text-align: center;
             margin-bottom: 12px;
             width: 100%;
-            max-width: 100%;
         }
 
         .app-logo {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
             border-radius: 12px;
             margin-bottom: 4px;
             background: #0f172a;
-            border: 2px solid var(--border-color);
-            padding: 4px;
+            border: 1px solid var(--border-color);
+            padding: 3px;
         }
 
         header h1 {
-            font-size: 30px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             color: #38bdf8;
             margin-bottom: 2px;
-            line-height: 1.2;
+            letter-spacing: 0.5px;
         }
 
         header p {
-            font-size: 16px;
-            font-weight: bold;
-            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #94a3b8;
             text-transform: uppercase;
-            line-height: 1.3;
+            letter-spacing: 0.5px;
         }
 
         /* Carosello & Pagine Orizzontali (Swipe) */
@@ -170,27 +178,30 @@
             gap: 6px;
             width: 100%;
             margin-bottom: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
         .nav-step-btn {
             flex: 1;
             padding: 10px 4px;
-            background: #0f172a;
-            border: 2px solid #38bdf8;
+            background: transparent;
+            border: none;
             color: #94a3b8;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 9px;
             cursor: pointer;
             text-align: center;
             transition: all 0.2s ease;
         }
 
         .nav-step-btn.active {
-            background: #38bdf8;
-            color: #0b0f19;
-            border-color: #ffffff;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            background: var(--accent-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
         }
 
         .carousel-container {
@@ -214,24 +225,27 @@
             padding: 2px;
         }
 
+        /* Card in stile Glassmorphism moderno */
         .card {
             background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 14px;
-            padding: 14px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             width: 100%;
         }
 
         .card h2 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
             color: #38bdf8;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
             text-transform: uppercase;
-            line-height: 1.3;
+            letter-spacing: 0.5px;
         }
 
         .input-group {
@@ -241,22 +255,28 @@
 
         .input-group label {
             display: block;
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #ffffff;
-            line-height: 1.3;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #cbd5e1;
         }
 
         .input-group input, .input-group select {
             width: 100%;
-            padding: 10px;
-            background: #0f172a;
-            border: 2px solid #38bdf8;
-            border-radius: 8px;
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             color: #ffffff;
-            font-size: 19px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
         }
 
         .tabs-container {
@@ -269,21 +289,22 @@
         .tab-btn {
             flex: 1;
             padding: 10px 4px;
-            background: #0f172a;
-            border: 2px solid #38bdf8;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
             cursor: pointer;
             text-align: center;
+            transition: all 0.2s ease;
         }
 
         .tab-btn.active {
-            background: #0ea5e9;
+            background: var(--accent-gradient);
             color: #ffffff;
-            border-color: #ffffff;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
         }
 
         .nav-buttons-row {
@@ -295,51 +316,79 @@
         button.nav-action-btn {
             flex: 1;
             padding: 12px;
-            background: #334155;
+            background: rgba(51, 65, 85, 0.8);
             color: white;
-            border: 2px solid #38bdf8;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
             text-transform: uppercase;
         }
 
         button.action-btn {
             width: 100%;
-            padding: 14px;
-            background: #0ea5e9;
+            padding: 15px;
+            background: var(--accent-gradient);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 22px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 12px;
+            margin-top: 14px;
             text-transform: uppercase;
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35);
         }
 
-        #canvas-container {
+        /* Visualizzatore Dinamico Immagine Render IA / Stock */
+        .pool-visual-container {
             width: 100%;
-            height: 220px;
-            display: block;
-            border-radius: 8px;
+            height: 230px;
+            border-radius: 12px;
             overflow: hidden;
             background: #020617;
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
+            position: relative;
             margin-top: 6px;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .pool-visual-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .pool-visual-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(6px);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #38bdf8;
+            border: 1px solid var(--border-color);
+            text-transform: uppercase;
         }
 
         .results {
             margin-top: 10px;
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.8);
             padding: 12px;
-            border-radius: 8px;
-            font-size: 19px;
-            font-weight: bold;
-            border-left: 6px solid #38bdf8;
-            color: #ffffff;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            border-left: 4px solid #38bdf8;
+            color: #f8fafc;
             line-height: 1.4;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .results p {
@@ -348,10 +397,10 @@
 
         .bom-container {
             margin-top: 10px;
-            background: #0f172a;
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
             padding: 10px;
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
             width: 100%;
         }
 
@@ -362,7 +411,7 @@
 
         .bom-list li {
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -382,17 +431,18 @@
         }
 
         .bom-left input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             accent-color: #0ea5e9;
             cursor: pointer;
             flex-shrink: 0;
+            border-radius: 4px;
         }
 
         .bom-left label {
-            font-size: 19px !important;
-            color: #ffffff !important;
-            font-weight: bold;
+            font-size: 15px !important;
+            color: #f8fafc !important;
+            font-weight: 600;
             cursor: pointer;
             margin: 0;
             line-height: 1.3;
@@ -406,26 +456,26 @@
 
         .bom-price-input {
             width: 100% !important;
-            max-width: 220px;
+            max-width: 200px;
             padding: 8px !important;
-            font-size: 19px !important;
+            font-size: 15px !important;
             text-align: right;
-            background: #1e293b !important;
+            background: rgba(30, 41, 59, 0.9) !important;
             color: #ffffff !important;
-            border: 2px solid #38bdf8 !important;
-            border-radius: 6px;
-            font-weight: bold;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 8px;
+            font-weight: 700;
         }
 
         .total-box {
             margin-top: 12px;
-            background: rgba(14, 165, 233, 0.25);
-            border: 2px solid #38bdf8;
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid var(--border-color);
             padding: 14px;
-            border-radius: 8px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffffff;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #f8fafc;
             line-height: 1.5;
             text-align: right;
             width: 100%;
@@ -433,18 +483,19 @@
 
         .total-box span {
             color: #38bdf8;
-            font-size: 26px;
+            font-size: 22px;
+            font-weight: 800;
         }
 
         .lite-summary-box {
             margin-top: 12px;
-            background: #0f172a;
-            border: 2px solid #38bdf8;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
             padding: 14px;
-            border-radius: 10px;
-            font-size: 19px;
-            font-weight: bold;
-            color: #ffffff;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #f8fafc;
             line-height: 1.6;
             text-align: left;
             width: 100%;
@@ -453,7 +504,7 @@
         .lite-summary-box .macro-row {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             padding: 6px 0;
         }
 
@@ -463,6 +514,7 @@
 
         .lite-summary-box .macro-val {
             color: #38bdf8;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -490,7 +542,7 @@
         <!-- BARRA DI NAVIGAZIONE ORIZZONTALE A SCHEDE -->
         <div class="carousel-nav">
             <button type="button" class="nav-step-btn active" id="nav_step_0" onclick="goToPage(0)">1. Anagrafica</button>
-            <button type="button" class="nav-step-btn" id="nav_step_1" onclick="goToPage(1)">2. Misure & 3D</button>
+            <button type="button" class="nav-step-btn" id="nav_step_1" onclick="goToPage(1)">2. Misure & Render</button>
             <button type="button" class="nav-step-btn" id="nav_step_2" onclick="goToPage(2)">3. Listino & Totali</button>
         </div>
 
@@ -514,7 +566,7 @@
                             <label>Partita IVA Costruttore</label>
                             <input type="text" id="builderPiva" value="IT12345678901" placeholder="P.IVA">
                         </div>
-                        <hr style="border: 1px solid rgba(56,189,248,0.3); margin: 12px 0;">
+                        <hr style="border: 1px solid var(--border-color); margin: 12px 0;">
                         <div class="input-group">
                             <label>Nome & Cognome Cliente</label>
                             <input type="text" id="clientName" value="Giuseppe Verdi" placeholder="Cliente">
@@ -534,7 +586,7 @@
                     </div>
                 </div>
 
-                <!-- PAGINA 2: SPECIFICHE TECNICHE, MISURE & 3D -->
+                <!-- PAGINA 2: SPECIFICHE TECNICHE, MISURE & RENDER DINAMICO IA -->
                 <div class="carousel-page">
                     <div class="card">
                         <h2>1. Specifiche & Dimensioni</h2>
@@ -604,10 +656,13 @@
                         </div>
                     </div>
 
-                    <!-- ANTEPRIMA 3D -->
-                    <div class="card" id="card3d">
-                        <h2>2. Anteprima 3D Vasca</h2>
-                        <div id="canvas-container"></div>
+                    <!-- VISUALIZZATORE DINAMICO FOTO / RENDER IA -->
+                    <div class="card" id="cardRender">
+                        <h2>2. Visualizzatore Solarium & Render</h2>
+                        <div class="pool-visual-container">
+                            <img id="poolRenderImg" src="" alt="Render Piscina con Solarium" onerror="this.src='https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80'">
+                            <div class="pool-visual-badge" id="poolBadgeText">Solarium Incluso</div>
+                        </div>
                     </div>
 
                     <div class="card" style="padding: 10px;">
@@ -693,13 +748,13 @@
 
                         <!-- CONTENITORE DISTINTA PRO -->
                         <div class="bom-container" id="proBomWrapper">
-                            <p style="color: #38bdf8; font-size: 19px; margin-bottom: 8px; font-weight: bold; text-transform: uppercase;" id="bomTitleText">Componenti & Lavori:</p>
+                            <p style="color: #38bdf8; font-size: 15px; margin-bottom: 8px; font-weight: 700; text-transform: uppercase;" id="bomTitleText">Componenti & Lavori:</p>
                             <ul class="bom-list" id="bomListContainer"></ul>
                         </div>
 
                         <!-- CONTENITORE SINTESI MACRO LITE -->
                         <div class="lite-summary-box" id="liteSummaryWrapper" style="display: none;">
-                            <p style="color: #38bdf8; font-size: 19px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; text-align: center;">Sintesi Preventivo Rapido LITE</p>
+                            <p style="color: #38bdf8; font-size: 15px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase; text-align: center;">Sintesi Preventivo Rapido LITE</p>
                             <div class="macro-row">
                                 <span>Subtotale Lavori Edili:</span>
                                 <span class="macro-val" id="liteEdileVal">€ 0,00</span>
@@ -708,7 +763,7 @@
                                 <span>Subtotale Impianto & Accessori:</span>
                                 <span class="macro-val" id="liteImpiantoVal">€ 0,00</span>
                             </div>
-                            <div class="macro-row" style="border-top: 2px solid #38bdf8; margin-top: 6px; padding-top: 8px;">
+                            <div class="macro-row" style="border-top: 1px solid var(--border-color); margin-top: 6px; padding-top: 8px;">
                                 <span>Imponibile Totale:</span>
                                 <span class="macro-val" id="liteImponibileVal">€ 0,00</span>
                             </div>
@@ -737,7 +792,6 @@
     </div>
 
     <script>
-        let scene, camera, renderer, poolGroup;
         let bomCustomItems = {};
         let currentRenderList = [];
         let currentTotals = {};
@@ -773,20 +827,19 @@
             document.getElementById('mainAppContainer').style.display = 'flex';
 
             if (ver === 'lite') {
-                document.getElementById('card3d').style.display = 'none';
+                document.getElementById('cardRender').style.display = 'none';
                 document.getElementById('proTabsWrapper').style.display = 'none';
                 document.getElementById('proBomWrapper').style.display = 'none';
                 document.getElementById('liteSummaryWrapper').style.display = 'block';
                 document.getElementById('cardTitleListino').innerText = '3. Preventivo Rapido Globale (LITE)';
                 document.getElementById('headerModeLabel').innerText = 'Modalità LITE';
             } else {
-                document.getElementById('card3d').style.display = 'block';
+                document.getElementById('cardRender').style.display = 'block';
                 document.getElementById('proTabsWrapper').style.display = 'block';
                 document.getElementById('proBomWrapper').style.display = 'block';
                 document.getElementById('liteSummaryWrapper').style.display = 'none';
                 document.getElementById('cardTitleListino').innerText = '3. Listino & Distinta Base (PRO)';
                 document.getElementById('headerModeLabel').innerText = 'Modalità PRO';
-                init3D();
             }
             updateAll();
         }
@@ -814,77 +867,32 @@
             updateAll();
         }
 
-        function init3D() {
-            const container = document.getElementById('canvas-container');
-            if (!container) return;
+        function updatePoolVisualImage(install, material, shape, circulation) {
+            const imgElement = document.getElementById('poolRenderImg');
+            const badgeElement = document.getElementById('poolBadgeText');
 
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x020617);
+            let imageUrl = "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80";
+            let badgeText = "Piscina Interrata C.A.";
 
-            const width = container.clientWidth || 350;
-            const height = container.clientHeight || 220;
-
-            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(width, height);
-            
-            container.innerHTML = '';
-            container.appendChild(renderer.domElement);
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.85));
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
-            dirLight.position.set(15, 30, 20);
-            scene.add(dirLight);
-
-            poolGroup = new THREE.Group();
-            scene.add(poolGroup);
-
-            createPoolMeshes(8, 4, 1.4, 'calcestruzzo', 'rettangolare');
-            camera.position.set(12, 10, 14);
-            camera.lookAt(0, 0, 0);
-            animate();
-        }
-
-        function createPoolMeshes(l, w, h, material, shape) {
-            if (!poolGroup) return;
-            while(poolGroup.children.length > 0) poolGroup.remove(poolGroup.children[0]);
-
-            const geomL = Math.max(2, l * 0.55);
-            const geomW = Math.max(1.5, w * 0.55);
-            const geomH = Math.max(0.8, h * 0.55);
-
-            let poolColor = 0x334155;
-            if (material === 'vetroresina') poolColor = 0xe2e8f0;
-            if (material === 'legno') poolColor = 0xb45309;
-            if (material === 'acciaio') poolColor = 0x94a3b8;
-
-            let poolGeometry;
-            if (shape === 'rotonda') {
-                poolGeometry = new THREE.CylinderGeometry(geomW / 2, geomW / 2, geomH, 32);
-            } else if (shape === 'ovale' || shape === 'libera') {
-                poolGeometry = new THREE.SphereGeometry(Math.max(geomL, geomW) / 2, 16, 16);
-            } else {
-                poolGeometry = new THREE.BoxGeometry(geomL, geomH, geomW);
+            if (install === 'fuoriterra') {
+                imageUrl = "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=80";
+                badgeText = "Piscina Fuori Terra";
+            } else if (material === 'legno') {
+                imageUrl = "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80";
+                badgeText = "Struttura in Legno / Composito";
+            } else if (material === 'vetroresina') {
+                imageUrl = "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80";
+                badgeText = "Monoblocco Vetroresina (GFK)";
+            } else if (circulation === 'sfioro_infinity' || shape === 'libera') {
+                imageUrl = "https://images.unsplash.com/photo-1533779283484-8ab4940aa78f?auto=format&fit=crop&w=800&q=80";
+                badgeText = "Design Infinity & Forma Libera";
+            } else if (circulation.includes('sfioro')) {
+                imageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80";
+                badgeText = "Sistema a Sfioro Mirror";
             }
 
-            const poolMesh = new THREE.Mesh(poolGeometry, new THREE.MeshStandardMaterial({ color: poolColor }));
-            poolMesh.position.y = geomH / 2;
-            poolGroup.add(poolMesh);
-
-            const waterMesh = new THREE.Mesh(poolGeometry, new THREE.MeshStandardMaterial({ color: 0x0ea5e9, transparent: true, opacity: 0.8 }));
-            waterMesh.scale.set(0.95, 0.85, 0.95);
-            waterMesh.position.y = (geomH / 2) + 0.02;
-            poolGroup.add(waterMesh);
-        }
-
-        function update3DGeometry(l, w, h, material, shape) {
-            if (scene && poolGroup) createPoolMeshes(l, w, h, material, shape);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            if (poolGroup) poolGroup.rotation.y += 0.002;
-            if (renderer && scene && camera) renderer.render(scene, camera);
+            imgElement.src = imageUrl;
+            badgeElement.innerText = badgeText;
         }
 
         function onDimensionsChange() {
@@ -1104,9 +1112,7 @@
                 `;
             }
 
-            if (appVersion === 'pro' && scene && renderer) {
-                update3DGeometry(l, w, h, materialMode, shapeMode);
-            }
+            updatePoolVisualImage(installMode, materialMode, shapeMode, circulationMode);
         }
 
         function generatePDF() {
@@ -1134,7 +1140,7 @@
             doc.setTextColor(14, 165, 233);
             doc.text("MYPOOL QUOTATION", 14, 18);
             
-            let titlePDF = appVersion === 'lite' ? "PREVENTIVO UNIVERSALE SWIPE (LITE)" : `PREVENTIVO PRO SWIPE (${activeQuoteMode.toUpperCase()})`;
+            let titlePDF = appVersion === 'lite' ? "PREVENTIVO UNIVERSALE (LITE)" : `PREVENTIVO PRO (${activeQuoteMode.toUpperCase()})`;
             doc.setFontSize(11);
             doc.setTextColor(80);
             doc.text(titlePDF, 14, 25);
@@ -1204,19 +1210,8 @@
             doc.setTextColor(14, 165, 233);
             doc.text(`TOTALE: € ${currentTotals.total.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 170, y, { align: 'right' });
 
-            doc.save(`Preventivo_Splash_${appVersion}_${client.replace(/\s+/g, '_')}.pdf`);
+            doc.save(`Preventivo_Modern_${appVersion}_${client.replace(/\s+/g, '_')}.pdf`);
         }
-
-        window.onresize = function() {
-            const container = document.getElementById('canvas-container');
-            if (container && renderer && camera) {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-            }
-        };
     </script>
 </body>
 </html>
